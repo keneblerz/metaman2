@@ -1,6 +1,8 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
 /**
@@ -9,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 public abstract class EntActor extends Entity{
     boolean reverse;
     float stateTime;
+    float maxVelocity = 50;
 
 
 
@@ -38,6 +41,12 @@ public abstract class EntActor extends Entity{
     void draw() {
         sprite = new Sprite(animation.getKeyFrame(stateTime, true));
         sprite.setPosition(f.getBody().getPosition().x + translateX, f.getBody().getPosition().y + translateY);
+        //sprite.setScale(.25f);
+        if (rotating) sprite.setRotation(MathUtils.radiansToDegrees * f.getBody().getAngle());
     }
 
+    @Override
+    void update() {
+        stateTime += Gdx.graphics.getDeltaTime();
+    }
 }

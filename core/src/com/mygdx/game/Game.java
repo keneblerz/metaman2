@@ -38,9 +38,9 @@ public class Game extends ApplicationAdapter {
 		//camera
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
-		cam = new OrthographicCamera(100 * (w / h), 100 );
+		cam = new OrthographicCamera(225 * (w / h), 225 );
 		cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
-		//cam.zoom = 4;
+		//cam.zoom = 2;
 		cam.update();
 
 		System.out.println("Cam viewport "+cam.viewportWidth + " " + cam.viewportHeight);

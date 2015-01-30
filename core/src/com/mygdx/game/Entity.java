@@ -28,6 +28,7 @@ public abstract class Entity {
     public Fixture f;
     float translateX; //to center the sprite image around its physics object
     float translateY;
+    boolean rotating; //does this object rotate along with the physics
 
     Animation animation;
     HashMap<State,Animation> animations = new HashMap<>();
