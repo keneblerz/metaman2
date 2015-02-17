@@ -3,7 +3,6 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -18,12 +17,14 @@ public class Game extends ApplicationAdapter {
 	static ArrayList<EntActor> playerEntities ;
 	Player mm; //megaman
 
+    ;
+
 	Box2DDebugRenderer debugRenderer; //to show our nice collision bounding boxes
 
 	SpriteBatch batch; //we need this to tell openGL what to draw
 
 	static World world;
-	static OrthographicCamera cam;
+	static BoundedCam cam;
 
 
 	//experimental
@@ -38,10 +39,7 @@ public class Game extends ApplicationAdapter {
 		//camera
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
-		cam = new OrthographicCamera(225 * (w / h), 225 );
-		cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
-		//cam.zoom = 2;
-		cam.update();
+		cam = new BoundedCam(225 * (w / h), 225 );
 
 		System.out.println("Cam viewport "+cam.viewportWidth + " " + cam.viewportHeight);
 
@@ -140,4 +138,11 @@ public class Game extends ApplicationAdapter {
 
 		debugRenderer.render(world, cam.combined); //show our physics bounding boxes
 	}
+
+    public void resize(int width, int height) {
+        cam.viewportWidth = width * (width/height);  //We will see width/32f units!
+        cam.viewportHeight = width ;
+        cam.update();
+    }
 }
+
