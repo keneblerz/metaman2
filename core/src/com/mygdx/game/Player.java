@@ -32,9 +32,9 @@ public class Player extends EntActor {
         circle.setRadius(16f);
         FixtureDef fixtureDef =new FixtureDef();
         fixtureDef.shape = circle;
-        fixtureDef.density = 0.5f;
-        fixtureDef.friction = 0.4f;
-        fixtureDef.restitution = 0.3f; // Make it bounce a little bit
+        fixtureDef.density = 1f;
+        fixtureDef.friction = 0; //no friction against other surfaces
+        fixtureDef.restitution = 0; // Make it not bounce
 
         BodyDef bodyDef = new BodyDef();
         // We set our body to dynamic, for something like ground which doesn't move we would set it to StaticBody
@@ -57,7 +57,7 @@ public class Player extends EntActor {
         if(Gdx.input.isKeyPressed(Input.Keys.W)){
             //f.getBody().applyLinearImpulse(0.0f, 1000.0f, f.getBody().getPosition().x, f.getBody().getPosition().y, true);
 
-            f.getBody().setLinearVelocity(f.getBody().getLinearVelocity().x,50);
+            f.getBody().setLinearVelocity(f.getBody().getLinearVelocity().x,150);
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.S)){
@@ -67,14 +67,14 @@ public class Player extends EntActor {
 
         if(Gdx.input.isKeyPressed(Input.Keys.A) ){
             reverse = true;
-            //f.getBody().applyLinearImpulse(-1000.0f, 0.0f,f.getBody().getPosition().x,f.getBody().getPosition().y, true);
+//            f.getBody().applyLinearImpulse(-2000.0f, 0.0f,f.getBody().getPosition().x,f.getBody().getPosition().y, true);
             //System.out.println("velocity " + f.getBody().getLinearVelocity());
             f.getBody().setLinearVelocity(-100,f.getBody().getLinearVelocity().y);
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.D) ){
             reverse = false;
-            //f.getBody().applyLinearImpulse(80f, 0.0f,f.getBody().getPosition().x,0, true);
+//            f.getBody().applyLinearImpulse(2000f, 0.0f,f.getBody().getPosition().x,0, true);
             //System.out.println("velocity " + f.getBody().getLinearVelocity());
             f.getBody().setLinearVelocity(100,f.getBody().getLinearVelocity().y);
         }

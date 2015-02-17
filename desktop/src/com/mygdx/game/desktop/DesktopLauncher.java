@@ -7,7 +7,7 @@ import com.mygdx.game.Game;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 225;
+		config.width = 281;
 		config.height = 225;
 		config.title = "the great bahamian side scroller";
 		new LwjglApplication(new Game(), config);
