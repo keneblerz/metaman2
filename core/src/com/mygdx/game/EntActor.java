@@ -3,16 +3,17 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
 /**
  * Created by Chariot on 1/30/2015.
  */
 public abstract class EntActor extends Entity{
+    boolean isPlayer = false;
     boolean reverse;
     float stateTime;
     float maxVelocity = 50;
-
 
 
     void setState(State s){ //sets the state of the object
@@ -36,7 +37,6 @@ public abstract class EntActor extends Entity{
 
     }
 
-
     @Override
     void draw() {
         sprite = new Sprite(animation.getKeyFrame(stateTime, true));
@@ -48,5 +48,10 @@ public abstract class EntActor extends Entity{
     @Override
     void update() {
         stateTime += Gdx.graphics.getDeltaTime();
+    }
+
+    public Vector2 get2DVector() {
+        Vector2 tempPosition = new Vector2(f.getBody().getPosition().x, f.getBody().getPosition().y);
+        return tempPosition;
     }
 }

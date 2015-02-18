@@ -47,6 +47,8 @@ public class Player extends EntActor {
         setState(State.IDLE);
 
         translateX = translateY = -16;
+
+        isPlayer = true;
         draw();
     }
 
@@ -55,7 +57,7 @@ public class Player extends EntActor {
         super.update();
 
         if(Gdx.input.isKeyPressed(Input.Keys.W)){
-            //f.getBody().applyLinearImpulse(0.0f, 1000.0f, f.getBody().getPosition().x, f.getBody().getPosition().y, true);
+            //f.getBody().applyLinearImpulse(0.0f, 1000.0f, f.getBody().get2DVector().x, f.getBody().get2DVector().y, true);
 
             f.getBody().setLinearVelocity(f.getBody().getLinearVelocity().x,150);
         }
@@ -67,14 +69,14 @@ public class Player extends EntActor {
 
         if(Gdx.input.isKeyPressed(Input.Keys.A) ){
             reverse = true;
-//            f.getBody().applyLinearImpulse(-2000.0f, 0.0f,f.getBody().getPosition().x,f.getBody().getPosition().y, true);
+//            f.getBody().applyLinearImpulse(-2000.0f, 0.0f,f.getBody().get2DVector().x,f.getBody().get2DVector().y, true);
             //System.out.println("velocity " + f.getBody().getLinearVelocity());
             f.getBody().setLinearVelocity(-100,f.getBody().getLinearVelocity().y);
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.D) ){
             reverse = false;
-//            f.getBody().applyLinearImpulse(2000f, 0.0f,f.getBody().getPosition().x,0, true);
+//            f.getBody().applyLinearImpulse(2000f, 0.0f,f.getBody().get2DVector().x,0, true);
             //System.out.println("velocity " + f.getBody().getLinearVelocity());
             f.getBody().setLinearVelocity(100,f.getBody().getLinearVelocity().y);
         }
@@ -85,10 +87,13 @@ public class Player extends EntActor {
         //super.update();
         System.out.println("velocity " + f.getBody().getLinearVelocity());
         draw();
+
     }
 
     @Override
     void dispose() {
         circle.dispose();
     }
+
+
 }
