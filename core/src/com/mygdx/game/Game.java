@@ -30,7 +30,7 @@ public class Game extends ApplicationAdapter {
 
 	//experimental
 	PolygonShape groundBox;
-    PolygonShape groundBox2;
+    PolygonShape wallBox;
 
 	@Override
 	public void create () {
@@ -79,9 +79,9 @@ public class Game extends ApplicationAdapter {
 
 		// Create a polygon shape
 		groundBox = new PolygonShape();
-        groundBox2 = new PolygonShape();
+        wallBox = new PolygonShape();
 		groundBox.setAsBox(cam.viewportWidth * 10f, 2.0f);
-        groundBox2.setAsBox(2.0f, cam.viewportHeight*10f);
+        wallBox.setAsBox(2.0f, cam.viewportHeight * 10f);
 
         // Create a f from our polygon shape and add it to our ground body
 		// Create a body from the defintion and add it to the world
@@ -90,7 +90,7 @@ public class Game extends ApplicationAdapter {
 
 		Body groundBody = world.createBody(groundBodyDef);
 		groundBody.createFixture(groundBox, 0.0f);
-        groundBody.createFixture(groundBox2, 0.0f);
+        groundBody.createFixture(wallBox, 0.0f);
 	}
 
 	@Override

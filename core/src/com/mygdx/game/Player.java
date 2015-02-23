@@ -69,16 +69,16 @@ public class Player extends EntActor {
 
         if(Gdx.input.isKeyPressed(Input.Keys.A) ){
             reverse = true;
-//            f.getBody().applyLinearImpulse(-2000.0f, 0.0f,f.getBody().get2DVector().x,f.getBody().get2DVector().y, true);
+            f.getBody().applyLinearImpulse(-2000.0f, 0.0f,f.getBody().getPosition().x,f.getBody().getPosition().y, true);
             //System.out.println("velocity " + f.getBody().getLinearVelocity());
-            f.getBody().setLinearVelocity(-100,f.getBody().getLinearVelocity().y);
+//            f.getBody().setLinearVelocity(-100,f.getBody().getLinearVelocity().y);
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.D) ){
             reverse = false;
-//            f.getBody().applyLinearImpulse(2000f, 0.0f,f.getBody().get2DVector().x,0, true);
+            f.getBody().applyLinearImpulse(2000f, 0.0f,f.getBody().getPosition().x,0, true);
             //System.out.println("velocity " + f.getBody().getLinearVelocity());
-            f.getBody().setLinearVelocity(100,f.getBody().getLinearVelocity().y);
+//            f.getBody().setLinearVelocity(100,f.getBody().getLinearVelocity().y);
         }
 
         if (!Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.D)){
