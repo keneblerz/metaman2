@@ -33,7 +33,7 @@ public class Player extends EntActor {
         FixtureDef fixtureDef =new FixtureDef();
         fixtureDef.shape = circle;
         fixtureDef.density = 1f;
-        fixtureDef.friction = 0; //no friction against other surfaces
+        fixtureDef.friction = 0f; //no friction against other surfaces
         fixtureDef.restitution = 0; // Make it not bounce
 
         BodyDef bodyDef = new BodyDef();
@@ -57,31 +57,37 @@ public class Player extends EntActor {
         super.update();
 
         if(Gdx.input.isKeyPressed(Input.Keys.W)){
-            //f.getBody().applyLinearImpulse(0.0f, 1000.0f, f.getBody().get2DVector().x, f.getBody().get2DVector().y, true);
+            if(state!= State.JUMPING){
+                setState(State.JUMPING);
+                System.out.println(stateTime);
 
+            }
+            if(animation.isAnimationFinished(stateTime)){ //we need it to stop at frame .4
+                stateTime = .4f;
+                updateState = false;
+            }
+            //f.getBody().applyLinearImpulse(0.0f, -10000.0f, f.getBody().getPosition().x, f.getBody().getPosition().y, true);
             f.getBody().setLinearVelocity(f.getBody().getLinearVelocity().x,150);
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.S)){
 
-
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.A) ){
+            if(state!= State.RUNNING && state!= State.JUMPING) setState(State.RUNNING);
             reverse = true;
             f.getBody().applyLinearImpulse(-2000.0f, 0.0f,f.getBody().getPosition().x,f.getBody().getPosition().y, true);
-            //System.out.println("velocity " + f.getBody().getLinearVelocity());
-//            f.getBody().setLinearVelocity(-100,f.getBody().getLinearVelocity().y);
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.D) ){
+            if(state!= State.RUNNING && state!= State.JUMPING) setState(State.RUNNING);
             reverse = false;
             f.getBody().applyLinearImpulse(2000f, 0.0f,f.getBody().getPosition().x,0, true);
-            //System.out.println("velocity " + f.getBody().getLinearVelocity());
-//            f.getBody().setLinearVelocity(100,f.getBody().getLinearVelocity().y);
         }
 
-        if (!Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.D)){
+        if (!Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.D) && f.getBody().getLinearVelocity().y == 0){
+            if(state!= State.IDLE) setState(State.IDLE);
             f.getBody().setLinearVelocity(0,f.getBody().getLinearVelocity().y);
         }
         //super.update();

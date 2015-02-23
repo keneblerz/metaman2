@@ -1,0 +1,68 @@
+
+megaman.png
+size: 32,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+slice
+  rotate: false
+  xy: 2, 175
+  size: 27, 42
+  orig: 27, 42
+  offset: 0, 0
+  index: 5
+slice
+  rotate: false
+  xy: 2, 127
+  size: 19, 46
+  orig: 19, 46
+  offset: 0, 0
+  index: 3
+slice
+  rotate: false
+  xy: 2, 84
+  size: 23, 41
+  orig: 23, 41
+  offset: 0, 0
+  index: 4
+slice
+  rotate: false
+  xy: 2, 45
+  size: 24, 37
+  orig: 24, 37
+  offset: 0, 0
+  index: 1
+slice
+  rotate: false
+  xy: 2, 2
+  size: 15, 41
+  orig: 15, 41
+  offset: 0, 0
+  index: 2
+
+megaman2.png
+size: 256,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+output/megamanx
+  rotate: false
+  xy: 2, 2
+  size: 192, 53
+  orig: 192, 53
+  offset: 0, 0
+  index: -1
+output/slice
+  rotate: false
+  xy: 196, 17
+  size: 24, 38
+  orig: 24, 38
+  offset: 0, 0
+  index: 6
+output/slice
+  rotate: false
+  xy: 222, 23
+  size: 30, 32
+  orig: 30, 32
+  offset: 0, 0
+  index: 7

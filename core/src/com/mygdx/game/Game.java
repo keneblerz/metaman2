@@ -13,10 +13,10 @@ import java.util.ArrayList;
 
 public class Game extends ApplicationAdapter {
 
-	static ArrayList<Entity> backgroundEntities ;
+	static ArrayList<EntEnvironment> backgroundEntities ;
 	static ArrayList<EntActor> enemyEntities ;
-	static ArrayList<Entity> pickupEntities ;
 	static ArrayList<EntActor> playerEntities ;
+    static ArrayList<Entity> pickupEntities ;
 	Player mm; //megaman
 
 
@@ -54,6 +54,8 @@ public class Game extends ApplicationAdapter {
 
 		mm = new Player();
 		playerEntities.add(mm);
+        backgroundEntities.add(new ObjPlatform(50,50));
+
 
 		testPhysics();
 
@@ -108,9 +110,9 @@ public class Game extends ApplicationAdapter {
 
 		//batch.draw(img, 0, 0);
 
-//		for (Entity e : backgroundEntities){
-//			e.update(backgroundEntities);
-//		}
+		for (EntEnvironment e : backgroundEntities){
+			e.update();
+		}
 
 		for (EntActor e : playerEntities){
 			e.update();
@@ -138,6 +140,10 @@ public class Game extends ApplicationAdapter {
 //		for (Entity e : backgroundEntities){ //draw backgrounds first!
 //			batch.draw( e.sprite, e.positionX,e.positionY);
 //		}
+
+        for (EntEnvironment e : backgroundEntities) {
+            e.sprite.draw(batch);
+        }
 //
 		for (EntActor e : playerEntities) { //draw players over everything else that has been drawn so far
 			e.sprite.draw(batch);

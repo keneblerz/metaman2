@@ -12,11 +12,13 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 public abstract class EntActor extends Entity{
     boolean isPlayer = false;
     boolean reverse;
+    boolean updateState = true;
     float stateTime;
     float maxVelocity = 50;
 
 
     void setState(State s){ //sets the state of the object
+        updateState = true;
         stateTime = 0;
         state = s;
 
@@ -41,13 +43,18 @@ public abstract class EntActor extends Entity{
     void draw() {
         sprite = new Sprite(animation.getKeyFrame(stateTime, true));
         sprite.setPosition(f.getBody().getPosition().x + translateX, f.getBody().getPosition().y + translateY);
-        //sprite.setScale(.25f);
+        if (reverse) sprite.flip(true,false);
         if (rotating) sprite.setRotation(MathUtils.radiansToDegrees * f.getBody().getAngle());
+
+
+        //sprite.setScale(.25f);
+
     }
 
     @Override
     void update() {
-        stateTime += Gdx.graphics.getDeltaTime();
+        if (updateState)
+            stateTime += Gdx.graphics.getDeltaTime();
     }
 
     public Vector2 get2DVector() {

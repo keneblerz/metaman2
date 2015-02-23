@@ -1,69 +1,41 @@
 
 megaman.png
-size: 239,48
+size: 32,256
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 slice
   rotate: false
-  xy: 2, 6
+  xy: 2, 175
   size: 27, 42
   orig: 27, 42
-  offset: 0, 0
-  index: 7
-slice
-  rotate: false
-  xy: 31, 14
-  size: 30, 34
-  orig: 30, 34
-  offset: 0, 0
-  index: 1
-slice
-  rotate: false
-  xy: 63, 14
-  size: 29, 34
-  orig: 29, 34
-  offset: 0, 0
-  index: 2
-slice
-  rotate: false
-  xy: 94, 16
-  size: 30, 32
-  orig: 30, 32
-  offset: 0, 0
-  index: 9
-slice
-  rotate: false
-  xy: 126, 11
-  size: 24, 37
-  orig: 24, 37
-  offset: 0, 0
-  index: 3
-slice
-  rotate: false
-  xy: 152, 10
-  size: 24, 38
-  orig: 24, 38
-  offset: 0, 0
-  index: 8
-slice
-  rotate: false
-  xy: 178, 7
-  size: 23, 41
-  orig: 23, 41
-  offset: 0, 0
-  index: 6
-slice
-  rotate: false
-  xy: 203, 2
-  size: 19, 46
-  orig: 19, 46
   offset: 0, 0
   index: 5
 slice
   rotate: false
-  xy: 224, 7
+  xy: 2, 127
+  size: 19, 46
+  orig: 19, 46
+  offset: 0, 0
+  index: 3
+slice
+  rotate: false
+  xy: 2, 84
+  size: 23, 41
+  orig: 23, 41
+  offset: 0, 0
+  index: 4
+slice
+  rotate: false
+  xy: 2, 45
+  size: 24, 37
+  orig: 24, 37
+  offset: 0, 0
+  index: 1
+slice
+  rotate: false
+  xy: 2, 2
   size: 15, 41
   orig: 15, 41
   offset: 0, 0
-  index: 4
+  index: 2
