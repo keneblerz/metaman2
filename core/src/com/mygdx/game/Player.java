@@ -67,7 +67,7 @@ public class Player extends EntActor {
                 updateState = false;
             }
             //f.getBody().applyLinearImpulse(0.0f, -10000.0f, f.getBody().getPosition().x, f.getBody().getPosition().y, true);
-            f.getBody().setLinearVelocity(f.getBody().getLinearVelocity().x,150);
+            f.getBody().setLinearVelocity(f.getBody().getLinearVelocity().x,1500);
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.S)){
@@ -77,13 +77,15 @@ public class Player extends EntActor {
         if(Gdx.input.isKeyPressed(Input.Keys.A) ){
             if(state!= State.RUNNING && state!= State.JUMPING) setState(State.RUNNING);
             reverse = true;
-            f.getBody().applyLinearImpulse(-2000.0f, 0.0f,f.getBody().getPosition().x,f.getBody().getPosition().y, true);
+            //f.getBody().applyLinearImpulse(-2000.0f, 0.0f,f.getBody().getPosition().x,f.getBody().getPosition().y, true);
+            f.getBody().applyForce(-100000.0f, 0.0f, f.getBody().getPosition().x, 0, true );
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.D) ){
             if(state!= State.RUNNING && state!= State.JUMPING) setState(State.RUNNING);
             reverse = false;
-            f.getBody().applyLinearImpulse(2000f, 0.0f,f.getBody().getPosition().x,0, true);
+            //f.getBody().applyLinearImpulse(2000f, 0.0f,f.getBody().getPosition().x,0, true);
+            f.getBody().applyForce(100000.0f, 0.0f, f.getBody().getPosition().x, 0, true );
         }
 
         if (!Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.D) && f.getBody().getLinearVelocity().y == 0){
