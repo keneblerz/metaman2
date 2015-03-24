@@ -35,7 +35,7 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void create () {
 
-		world = new World(new Vector2(0, -9800f), true); //physics. gravity = -250
+		world = new World(new Vector2(0, -10f), true); // only use -10f
 		debugRenderer = new Box2DDebugRenderer();
 
 		//camera
