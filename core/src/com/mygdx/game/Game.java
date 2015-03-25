@@ -18,6 +18,7 @@ public class Game extends ApplicationAdapter {
 	static ArrayList<EntActor> playerEntities ;
     static ArrayList<Entity> pickupEntities ;
 	Player mm; //megaman
+    static float PPM; //Pixel-to-Meter Conversion rate for Box2D
 
 
 
@@ -184,5 +185,7 @@ public class Game extends ApplicationAdapter {
         cameraPosition.lerp(target, 0.1f);
         cam.position.set(cameraPosition);
     }
+
+
 }
 

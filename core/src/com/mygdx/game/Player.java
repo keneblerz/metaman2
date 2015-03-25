@@ -33,8 +33,8 @@ public class Player extends EntActor {
         FixtureDef fixtureDef =new FixtureDef();
         fixtureDef.shape = circle;
         fixtureDef.density = 1f;
-        fixtureDef.friction = .5f; //no friction against other surfaces //should be between 0 and 1
-        fixtureDef.restitution = .1f; // 0 = no bounce, 1 = perfect bounce
+        fixtureDef.friction = 0.5f; //no friction against other surfaces //should be between 0 and 1
+        fixtureDef.restitution = 0f; // 0 = no bounce, 1 = perfect bounce
 
 
         BodyDef bodyDef = new BodyDef();
@@ -61,6 +61,15 @@ public class Player extends EntActor {
     void update() {
         super.update();
 
+        if(state == State.JUMPING) {
+            if (animation.isAnimationFinished(stateTime)) { //we need it to stop at frame .4
+                stateTime = .3f;
+                updateState = false;
+            }
+        } //Left it out here to take care of the jumping animation while the button isn't being pressed
+          //Will need to use Contact to determine contact states
+
+
         if(Gdx.input.isKeyPressed(Input.Keys.W)){
             if(state!= State.JUMPING){
                 setState(State.JUMPING);
@@ -68,11 +77,11 @@ public class Player extends EntActor {
 
             }
             if(animation.isAnimationFinished(stateTime)){ //we need it to stop at frame .4
-                stateTime = .4f;
+                stateTime = .3f;
                 updateState = false;
             }
-            //f.getBody().applyLinearImpulse(0.0f, -10000.0f, f.getBody().getPosition().x, f.getBody().getPosition().y, true);
-            f.getBody().setLinearVelocity(f.getBody().getLinearVelocity().x,1000);
+            f.getBody().applyLinearImpulse(0.0f, 150000.0f, f.getBody().getPosition().x, f.getBody().getPosition().y, true);
+//            f.getBody().setLinearVelocity(f.getBody().getLinearVelocity().x,1000);
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.S)){
