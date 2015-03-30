@@ -17,27 +17,29 @@ public class Game extends ApplicationAdapter {
 	static ArrayList<EntActor> enemyEntities ;
 	static ArrayList<EntActor> playerEntities ;
     static ArrayList<Entity> pickupEntities ;
-	Player mm; //megaman
-    static float PPM; //Pixel-to-Meter Conversion rate for Box2D
 
-
+    static World world;
+    static OrthographicCamera cam;
+    static MContactListener contactListener;
 
 	Box2DDebugRenderer debugRenderer; //to show our nice collision bounding boxes
-
 	SpriteBatch batch; //we need this to tell openGL what to draw
-
-	static World world;
-    static OrthographicCamera cam;
 
 	//experimental
 	PolygonShape groundBox;
     PolygonShape wallBox;
 
+    Player mm; //megaman
+    float PPM; //Pixel-to-Meter Conversion rate for Box2D
+
 	@Override
 	public void create () {
 
 		world = new World(new Vector2(0, -10f), true); // only use -10f
-//        world.setContactListener(MContactListener);
+
+		contactListener = new MContactListener();
+        world.setContactListener(contactListener);
+
 		debugRenderer = new Box2DDebugRenderer();
 
 		//camera
@@ -45,8 +47,6 @@ public class Game extends ApplicationAdapter {
 		float h = Gdx.graphics.getHeight();
 		cam = new OrthographicCamera(225 * (w / h), 225  );
         cam.update();
-
-
 
         System.out.println("Cam viewport "+cam.viewportWidth + " " + cam.viewportHeight);
 
@@ -60,43 +60,7 @@ public class Game extends ApplicationAdapter {
 		playerEntities.add(mm);
         backgroundEntities.add(new ObjPlatform(50,50));
 
-
 		testPhysics();
-
-	}
-
-	void testPhysics(){
-//		circle = new CircleShape();
-//		circle.setRadius(6f);
-//		fixtureDef =new FixtureDef();
-//		fixtureDef.shape = circle;
-//		fixtureDef.density = 0.5f;
-//		fixtureDef.friction = 0.4f;
-//		fixtureDef.restitution = 0.6f; // Make it bounce a little bit
-
-//		bodyDef = new BodyDef();
-//// We set our body to dynamic, for something like ground which doesn't move we would set it to StaticBody
-//		bodyDef.type = BodyDef.BodyType.DynamicBody;
-//		bodyDef.position.set(50, cam.viewportHeight);
-//		body = world.createBody(bodyDef);
-//		fixture = body.createFixture(fixtureDef);
-		//BODY HAS A SHAPE
-		//FIXTURE HAS A BODY
-
-		// Create a polygon shape
-		groundBox = new PolygonShape();
-        wallBox = new PolygonShape();
-		groundBox.setAsBox(cam.viewportWidth * 10f, 2.0f);
-        wallBox.setAsBox(2.0f, cam.viewportHeight * 10f);
-
-        // Create a f from our polygon shape and add it to our ground body
-		// Create a body from the defintion and add it to the world
-		BodyDef groundBodyDef = new BodyDef();
-		groundBodyDef.position.set(new Vector2(0, 0));// Set its world position
-
-		Body groundBody = world.createBody(groundBodyDef);
-		groundBody.createFixture(groundBox, 0.0f);
-        groundBody.createFixture(wallBox, 0.0f);
 	}
 
 	@Override
@@ -111,7 +75,6 @@ public class Game extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
 		//batch.draw(img, 0, 0);
 
 		for (EntEnvironment e : backgroundEntities){
@@ -123,14 +86,6 @@ public class Game extends ApplicationAdapter {
 		}
 
         updateGlobalCam(mm);
-
-//		cam.zoom -= 0.02;
-//		cam.translate(3, 0, 0);
-//		cam.zoom = MathUtils.clamp(cam.zoom, 0.1f, 100 / cam.viewportWidth);
-//		float effectiveViewportWidth = cam.viewportWidth * cam.zoom;
-//		float effectiveViewportHeight = cam.viewportHeight * cam.zoom;
-//		cam.position.x = MathUtils.clamp(cam.position.x, effectiveViewportWidth / 2f, 100 - effectiveViewportWidth / 2f);
-//		cam.position.y = MathUtils.clamp(cam.position.y, effectiveViewportHeight / 2f, 100 - effectiveViewportHeight / 2f);
 
         if(cam.position.x < cam.viewportWidth/2 - 10)
             cam.position.x = cam.viewportWidth/2 - 10;
@@ -162,6 +117,7 @@ public class Game extends ApplicationAdapter {
 		debugRenderer.render(world, cam.combined); //show our physics bounding boxes
 	}
 
+    @Override
     public void resize(int width, int height) {
         cam.viewportWidth = width * (width/height);  //We will see width/32f units!
         cam.viewportHeight = height ;
@@ -189,6 +145,22 @@ public class Game extends ApplicationAdapter {
         cam.position.set(cameraPosition);
     }
 
+    void testPhysics(){
 
+        // Create a polygon shape
+        groundBox = new PolygonShape();
+        wallBox = new PolygonShape();
+        groundBox.setAsBox(cam.viewportWidth * 10f, 2.0f);
+        wallBox.setAsBox(2.0f, cam.viewportHeight * 10f);
+
+        // Create a f from our polygon shape and add it to our ground body
+        // Create a body from the defintion and add it to the world
+        BodyDef groundBodyDef = new BodyDef();
+        groundBodyDef.position.set(new Vector2(0, 0));// Set its world position
+
+        Body groundBody = world.createBody(groundBodyDef);
+        groundBody.createFixture(groundBox, 0.0f);
+        groundBody.createFixture(wallBox, 0.0f);
+    }
 }
 

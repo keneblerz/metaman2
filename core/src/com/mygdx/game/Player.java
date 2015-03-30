@@ -76,8 +76,6 @@ public class Player extends EntActor {
                 updateState = false;
             }
         } //Left it out here to take care of the jumping animation while the button isn't being pressed
-          //Will need to use Contact to determine contact states
-
 
         if(Gdx.input.isKeyPressed(Input.Keys.W) && jumpVelocity != 0 && acceptingJumps){
             grounded = false;
