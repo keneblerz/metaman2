@@ -9,9 +9,18 @@ import com.badlogic.gdx.physics.box2d.*;
 /**
  * Created by Chariot on 1/30/2015.
  */
+//TODO : Develop a Dash system that checks how long since we pressed the move buttons (A & D) in our current case (Not until we perfect normal physics)
+
 public class Player extends EntActor {
 
     CircleShape circle;
+
+
+    //Trying to implement the same jump system.
+    float jumpVelocity = 1; //the percentage of 'jump we have left'. decrease to 0 the longer jump for -- makes a our jump weaker over time
+    boolean acceptingJumps = true; //whether or not we care if the user presses the jump button (this stops auto jumps)
+    boolean jumpFrame;
+    boolean grounded;
 
     Player(){
         TextureAtlas ta;
@@ -70,7 +79,8 @@ public class Player extends EntActor {
           //Will need to use Contact to determine contact states
 
 
-        if(Gdx.input.isKeyPressed(Input.Keys.W)){
+        if(Gdx.input.isKeyPressed(Input.Keys.W) && jumpVelocity != 0 && acceptingJumps){
+            grounded = false;
             if(state!= State.JUMPING){
                 setState(State.JUMPING);
 //                System.out.println(stateTime);
@@ -80,8 +90,19 @@ public class Player extends EntActor {
                 stateTime = .3f;
                 updateState = false;
             }
+            jumpVelocity -= 2 * Gdx.graphics.getDeltaTime();
+            if (jumpVelocity < 0) jumpVelocity = 0 ;
+
+            jumpFrame = true;
+
             f.getBody().applyLinearImpulse(0.0f, 150000.0f, f.getBody().getPosition().x, f.getBody().getPosition().y, true);
 //            f.getBody().setLinearVelocity(f.getBody().getLinearVelocity().x,1000);
+        }
+
+
+        if (jumpFrame && !Gdx.input.isKeyPressed(Input.Keys.W)){ //jump frame is only set to true after we jumped a frame ... AND we didn't jump this frame
+            jumpFrame = false;
+            acceptingJumps = false; // we don't care if they press the jump key or not, we still won't them jump
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.S)){
@@ -111,6 +132,20 @@ public class Player extends EntActor {
         System.out.println("velocity " + f.getBody().getLinearVelocity());
         draw();
 
+        // TODO: Now to make this work with CONTACT
+        if(f.getBody().getPosition().y < 20f) { //Being simple for now
+            grounded = true;
+        }
+
+        if(grounded){ //we're grounded again
+            jumpVelocity = 1;
+            acceptingJumps = true;
+        }
+
+//        System.out.println("Y : " + f.getBody().getPosition().y);
+//        System.out.println("Grounded? : " + grounded);
+//        System.out.println("Accepting Jumps? : " + acceptingJumps);
+
     }
 
     @Override
@@ -120,3 +155,4 @@ public class Player extends EntActor {
 
 
 }
+

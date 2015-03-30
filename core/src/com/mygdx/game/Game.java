@@ -37,6 +37,7 @@ public class Game extends ApplicationAdapter {
 	public void create () {
 
 		world = new World(new Vector2(0, -10f), true); // only use -10f
+//        world.setContactListener(MContactListener);
 		debugRenderer = new Box2DDebugRenderer();
 
 		//camera
@@ -44,6 +45,8 @@ public class Game extends ApplicationAdapter {
 		float h = Gdx.graphics.getHeight();
 		cam = new OrthographicCamera(225 * (w / h), 225  );
         cam.update();
+
+
 
         System.out.println("Cam viewport "+cam.viewportWidth + " " + cam.viewportHeight);
 
