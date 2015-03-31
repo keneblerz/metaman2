@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Array;
  * Created by Keno on 3/29/2015.
  */
 public class MContactListener  implements ContactListener {
-    private int numFootContacts;
+    private int numFootContacts = 0;
     private boolean playerDead;
     private Array<Body> bodiesToRemove = new Array(); // For Powerups and whatnot
 
@@ -16,10 +16,15 @@ public class MContactListener  implements ContactListener {
     }
 
     @Override
-    public void beginContact(Contact c) { }
+    public void beginContact(Contact c) {
+        numFootContacts++;
+        System.out.println("Contact" + " " + numFootContacts);
+    }
 
     @Override
-    public void endContact(Contact c) {}
+    public void endContact(Contact c) {
+
+    }
 
     @Override
     public void preSolve(Contact c, Manifold m) {}

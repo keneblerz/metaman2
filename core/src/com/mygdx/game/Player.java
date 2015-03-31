@@ -127,7 +127,7 @@ public class Player extends EntActor {
             f.getBody().setLinearVelocity(0,f.getBody().getLinearVelocity().y);
         }
         //super.update();
-        System.out.println("velocity " + f.getBody().getLinearVelocity());
+//        System.out.println("velocity " + f.getBody().getLinearVelocity());
         draw();
 
         // TODO: Now to make this work with CONTACT
