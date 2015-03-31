@@ -149,6 +149,10 @@ public class Player extends EntActor {
 
     }
 
+    public void canJump(boolean b) {
+        grounded = b;
+    }
+
     @Override
     void dispose() {
         circle.dispose();
