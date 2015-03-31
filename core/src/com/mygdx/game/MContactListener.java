@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 
@@ -17,8 +19,24 @@ public class MContactListener  implements ContactListener {
 
     @Override
     public void beginContact(Contact c) {
+<<<<<<< HEAD
         numFootContacts++;
         System.out.println("Contact" + " " + numFootContacts);
+=======
+        /*Here is where the game needs to know when the player:
+        1. Touches the floor
+        2. Touches an item
+        3. Touches and enemy
+        */
+        Fixture fa = c.getFixtureA();
+        Fixture fb = c.getFixtureB();
+
+        if(fa.getUserData().equals("mega") || fb.getUserData().equals("platform")) {
+            numFootContacts++;
+            System.out.println("Contact " + numFootContacts);
+
+        }
+>>>>>>> origin/kBranch
     }
 
     @Override
