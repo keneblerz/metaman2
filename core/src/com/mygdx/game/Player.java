@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.*;
 public class Player extends EntActor {
 
     CircleShape circle;
+    Contact contact;
 
 
     //Trying to implement the same jump system.
@@ -53,6 +54,8 @@ public class Player extends EntActor {
 
         Body body = Game.world.createBody(bodyDef);
         f = body.createFixture(fixtureDef);
+        body.setUserData("mega");
+        f.setUserData("mega");
 
 
         body.setGravityScale(14f); //gravityScale = 0 means this thing will just float, 1.0 is default, use this to change how fast THIS object falls
@@ -127,7 +130,7 @@ public class Player extends EntActor {
             f.getBody().setLinearVelocity(0,f.getBody().getLinearVelocity().y);
         }
         //super.update();
-        System.out.println("velocity " + f.getBody().getLinearVelocity());
+//        System.out.println("velocity " + f.getBody().getLinearVelocity());
         draw();
 
         // TODO: Now to make this work with CONTACT

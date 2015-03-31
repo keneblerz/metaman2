@@ -36,11 +36,11 @@ public class Game extends ApplicationAdapter {
 	public void create () {
 
 		world = new World(new Vector2(0, -10f), true); // only use -10f
-
 		contactListener = new MContactListener();
         world.setContactListener(contactListener);
-
 		debugRenderer = new Box2DDebugRenderer();
+
+
 
 		//camera
 		float w = Gdx.graphics.getWidth();
@@ -146,6 +146,7 @@ public class Game extends ApplicationAdapter {
     }
 
     void testPhysics(){
+        //Needs Entity class to create these so they can have their own fixture
 
         // Create a polygon shape
         groundBox = new PolygonShape();
@@ -159,8 +160,11 @@ public class Game extends ApplicationAdapter {
         groundBodyDef.position.set(new Vector2(0, 0));// Set its world position
 
         Body groundBody = world.createBody(groundBodyDef);
-        groundBody.createFixture(groundBox, 0.0f);
-        groundBody.createFixture(wallBox, 0.0f);
+
+        groundBody.setUserData("platform");
+
+        groundBody.createFixture(groundBox, 0.0f).setUserData("platform");
+        groundBody.createFixture(wallBox, 0.0f).setUserData("platform");
     }
 }
 
