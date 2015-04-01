@@ -11,6 +11,28 @@ import com.badlogic.gdx.physics.box2d.*;
 
 import java.util.ArrayList;
 
+/*
+Goals/Machanics For Megaman
+
+
+
+TODO 3.Player Physics (running/jumping)
+TODO 4.Bounding box collisions
+TODO 7.Tile Mapping (developing a level)d
+
+
+
+
+TODO 5.Fix Animations (Tie them to player motion [Running/Jumping])
+TODO 6.Cameras (Movement throughout the level)
+
+TODO 8.State Machines (Level Selects/Game Over/Game Won/Menus)
+
+TODO 9.Advanced Game Mechanics?? (Shooting/Dashing?)
+
+TODO 10.Enemies and their behavior?
+* */
+
 public class Game extends ApplicationAdapter {
 
 	static ArrayList<EntEnvironment> backgroundEntities ;
@@ -39,6 +61,11 @@ public class Game extends ApplicationAdapter {
 		contactListener = new MContactListener();
         world.setContactListener(contactListener);
 		debugRenderer = new Box2DDebugRenderer();
+
+        AudioManager.changeMusic(AudioManager.mMusic.intro);
+
+
+
 
 
 
@@ -161,10 +188,8 @@ public class Game extends ApplicationAdapter {
 
         Body groundBody = world.createBody(groundBodyDef);
 
-        groundBody.setUserData("platform");
-
         groundBody.createFixture(groundBox, 0.0f).setUserData("platform");
-        groundBody.createFixture(wallBox, 0.0f).setUserData("platform");
+        groundBody.createFixture(wallBox, 0.0f).setUserData("wall");
     }
 }
 

@@ -10,6 +10,9 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 
 /**
  * Created by Keno on 2/22/2015.
@@ -19,22 +22,51 @@ public class ObjPlatform extends EntEnvironment {
     ObjPlatform(float new_x, float new_y){
         x = new_x;
         y = new_y;
-        region = new TextureRegion( new Texture(Gdx.files.internal("core/assets/objects/mmplatform.png")));
 
+        fs = new HashMap<>();
+        shapes = new HashMap<>();
+
+        //texture
+        region = new TextureRegion(new Texture(Gdx.files.internal("core/assets/objects/mmplatform.png")));
+
+        //platform itself
         shape = new PolygonShape();
-        shape.setAsBox(region.getRegionWidth()/2,region.getRegionHeight()/2);
+        shape.setAsBox(region.getRegionWidth()/2,(region.getRegionHeight()/2)-2);
 
         BodyDef groundBodyDef = new BodyDef();
         Body groundBody = Game.world.createBody(groundBodyDef);
 
-        groundBody.setUserData("platform");
-
         Fixture f = groundBody.createFixture(shape, 0.0f);
         f.setFriction(.5f);
 
+        f.setUserData("platform");
+
+        fs.put("platform", f);
+        shapes.put("platform", shape);
+
+        //platform Top -- like the walkable part
+        shape = new PolygonShape();
+        shape.setAsBox(region.getRegionWidth()/2, 1);
+
+        groundBodyDef = new BodyDef();
+        groundBody = Game.world.createBody(groundBodyDef);
+
+        f = groundBody.createFixture(shape, 0.0f);
+        f.setFriction(.5f);
+
+        f.setUserData("platform top");
+
+        fs.put("platform top", f);
+        shapes.put("platform top", shape);
+
+
+        //sprite stuff
         sprite = new Sprite(region);
         sprite.setPosition(new_x,new_y);
-        f.getBody().setTransform(new_x + region.getRegionWidth()/2,new_y + region.getRegionHeight()/2,0);
+
+        fs.get("platform").getBody().setTransform(new_x + region.getRegionWidth() / 2, new_y -2 + region.getRegionHeight() / 2, 0);
+        fs.get("platform top").getBody().setTransform(new_x + region.getRegionWidth()/2,new_y + region.getRegionHeight()-1,0);
+//        f.getBody().setTransform(new_x + region.getRegionWidth()/2,new_y + region.getRegionHeight()/2,0);
     }
 
     @Override

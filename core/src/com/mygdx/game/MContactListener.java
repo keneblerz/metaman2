@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 
@@ -22,31 +23,58 @@ public class MContactListener  implements ContactListener {
         1. Touches the floor
         2. Touches an item
         3. Touches and enemy
+
+        FIXME Needs to jumps continuously while in contact with wall
         */
         Fixture fa = c.getFixtureA();
         Fixture fb = c.getFixtureB();
 
-        if(fa.getUserData().equals("mega") || fb.getUserData().equals("platform")) {
+        if(fa.getUserData().equals("wall") && fb.getUserData().equals("mega")) {
             numFootContacts++;
-            System.out.println("Contact " + numFootContacts);
+            System.out.println("Wall Contact");
 
             for (EntActor e : Game.playerEntities) {
-                e. = true;
+                e.canJump(true);
+                System.out.println(e.grounded);
             }
+        }
+        if(fa.getUserData().equals("platform") && fb.getUserData().equals("mega")) {
+            numFootContacts++;
+            System.out.println("Floor Contact");
 
+            for (EntActor e : Game.playerEntities) {
+                e.canJump(true);
+                System.out.println(e.grounded);
+            }
         }
     }
 
     @Override
-    public void endContact(Contact c) {
+    public void endContact(Contact c) {}
 
+    @Override
+    public void preSolve(Contact c, Manifold m) {
+
+
+//        Fixture fa = c.getFixtureA();
+//        Fixture fb = c.getFixtureB();
+//
+//        if(fa.getUserData().equals("wall") && fb.getUserData().equals("mega")) {
+//        }
+//        if(fa.getUserData().equals("platform") && fb.getUserData().equals("mega")) {
+//        }
     }
 
     @Override
-    public void preSolve(Contact c, Manifold m) {}
+    public void postSolve(Contact c, ContactImpulse ci) {
 
-    @Override
-    public void postSolve(Contact c, ContactImpulse ci) {}
+//        Fixture fa = c.getFixtureA();
+//        Fixture fb = c.getFixtureB();
+//
+//        if(fa.getUserData().equals("wall") && fb.getUserData().equals("mega")) {
+//            fb.getBody().applyLinearImpulse(500000f, 500000.0f,fb.getBody().getPosition().x,fb.getBody().getPosition().y, true);
+//        }
+    }
 
     public Array<Body> getBodies() { return this.bodiesToRemove; }
     public boolean playerCanJump() { return this.numFootContacts > 0; }

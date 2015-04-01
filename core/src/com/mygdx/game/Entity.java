@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -24,6 +25,9 @@ public abstract class Entity {
     float a; //alpha
     State state = State.IDLE;
 
+
+    boolean multiFixture; //if true, the entity has multiple fixtures/stuff
+    HashMap<String,Fixture> fs = new HashMap<>();
 
     public Fixture f;
     float translateX; //to center the sprite image around its physics object

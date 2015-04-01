@@ -13,6 +13,7 @@ public abstract class EntActor extends Entity{
     boolean isPlayer = false;
     boolean reverse;
     boolean updateState = true;
+    boolean grounded;
     float stateTime;
     float maxVelocity = 50;
 
@@ -49,6 +50,10 @@ public abstract class EntActor extends Entity{
 
         //sprite.setScale(.25f);
 
+    }
+
+    public void canJump(boolean b) {
+        grounded = b;
     }
 
     @Override
