@@ -25,6 +25,7 @@ public class MContactListener  implements ContactListener {
         3. Touches and enemy
 
         FIXME Needs to jumps continuously while in contact with wall
+        FIXME There is a force that pushes mega away from the wall when jumping
         */
         Fixture fa = c.getFixtureA();
         Fixture fb = c.getFixtureB();

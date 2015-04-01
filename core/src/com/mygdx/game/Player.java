@@ -82,7 +82,7 @@ public class Player extends EntActor {
 
         if(state == State.JUMPING) {
             if (animation.isAnimationFinished(stateTime)) { //we need it to stop at frame .4
-                stateTime = .3f;
+                stateTime = .4f;
                 updateState = false;
             }
         } //Left it out here to take care of the jumping animation while the button isn't being pressed
@@ -95,7 +95,7 @@ public class Player extends EntActor {
 
             }
             if(animation.isAnimationFinished(stateTime)){ //we need it to stop at frame .4
-                stateTime = .3f;
+                stateTime = .4f;
                 updateState = false;
             }
             jumpVelocity -= 2 * Gdx.graphics.getDeltaTime();

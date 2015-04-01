@@ -20,17 +20,17 @@ TODO 3.Player Physics (running/jumping)
 TODO 4.Bounding box collisions
 TODO 7.Tile Mapping (developing a level)d
 
-
-
+TODO 11.Particle Effects
 
 TODO 5.Fix Animations (Tie them to player motion [Running/Jumping])
 TODO 6.Cameras (Movement throughout the level)
 
-TODO 8.State Machines (Level Selects/Game Over/Game Won/Menus)
-
 TODO 9.Advanced Game Mechanics?? (Shooting/Dashing?)
 
 TODO 10.Enemies and their behavior?
+
+TODO 8.State Machines (Level Selects/Game Over/Game Won/Menus)
+
 * */
 
 public class Game extends ApplicationAdapter {
