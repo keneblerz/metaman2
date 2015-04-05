@@ -14,6 +14,7 @@ public abstract class EntActor extends Entity{
     boolean reverse;
     boolean updateState = true;
     boolean grounded;
+    boolean wallJump;
     float stateTime;
     float maxVelocity = 50;
 
@@ -37,7 +38,6 @@ public abstract class EntActor extends Entity{
                 animation = animations.get(State.COMPLETE);
                 break;
         }
-
     }
 
     @Override
@@ -47,14 +47,13 @@ public abstract class EntActor extends Entity{
         if (reverse) sprite.flip(true,false);
         if (rotating) sprite.setRotation(MathUtils.radiansToDegrees * f.getBody().getAngle());
 
-
         //sprite.setScale(.25f);
-
     }
 
     public void canJump(boolean b) {
         grounded = b;
     }
+    public void canWallJump(boolean b) { wallJump = b; }
 
     @Override
     void update() {

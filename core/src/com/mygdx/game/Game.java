@@ -31,6 +31,8 @@ TODO 10.Enemies and their behavior?
 
 TODO 8.State Machines (Level Selects/Game Over/Game Won/Menus)
 
+TODO Ajillion. InputProcessor will be needed
+
 * */
 
 public class Game extends ApplicationAdapter {
@@ -62,12 +64,7 @@ public class Game extends ApplicationAdapter {
         world.setContactListener(contactListener);
 		debugRenderer = new Box2DDebugRenderer();
 
-        AudioManager.changeMusic(AudioManager.mMusic.intro);
-
-
-
-
-
+        AudioManager.changeMusic(AudioManager.mMusic.sChameleon);
 
 		//camera
 		float w = Gdx.graphics.getWidth();
@@ -75,7 +72,7 @@ public class Game extends ApplicationAdapter {
 		cam = new OrthographicCamera(225 * (w / h), 225  );
         cam.update();
 
-        System.out.println("Cam viewport "+cam.viewportWidth + " " + cam.viewportHeight);
+        System.out.println("Cam viewport " + cam.viewportWidth + " " + cam.viewportHeight);
 
 		batch = new SpriteBatch();
 		backgroundEntities = new ArrayList<>();

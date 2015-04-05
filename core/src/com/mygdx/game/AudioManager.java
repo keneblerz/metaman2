@@ -11,6 +11,7 @@ import com.badlogic.gdx.files.FileHandle;
 public class AudioManager {
     static class mMusic {
         static String intro = "01 - X - CAPCOM LOGO.mp3";
+        static String sChameleon = "15 - X - STING CHAMELEAO STAGE.MP3";
     }
 
     static class mSounds {
