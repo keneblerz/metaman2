@@ -70,7 +70,7 @@ public class ObjPlatform extends EntEnvironment {
     }
 
     @Override
-    void dispose() {
+    public void dispose() {
         shape.dispose();
     }
 

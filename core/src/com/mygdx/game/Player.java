@@ -68,12 +68,12 @@ public class Player extends EntActor {
 
         translateX = translateY = -16;
 
-        isPlayer = true;
+        //isPlayer = true;
         draw();
     }
 
     @Override
-    void update() {
+    protected void update() {
         super.update();
 
         dashCooldown += Gdx.graphics.getDeltaTime();
@@ -114,7 +114,7 @@ public class Player extends EntActor {
             //f.getBody().setLinearVelocity(0,f.getBody().getLinearVelocity().y);
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.W) && jumpVelocity != 0 && acceptingJumps){ //FIXME
+        if(Gdx.input.isKeyPressed(Input.Keys.W) && jumpVelocity != 0 && acceptingJumps){ //FIXME Needs to not work while in the air
             grounded = false;
             if(state!= State.JUMPING){
                 setState(State.JUMPING);
@@ -173,7 +173,7 @@ public class Player extends EntActor {
     }
 
     @Override
-    void dispose() {
+    public void dispose() {
         circle.dispose();
     }
 

@@ -45,6 +45,19 @@ public class MContactListener  implements ContactListener {
                 System.out.println(e.grounded);
             }
         }
+
+        String uDataA = (String) fb.getUserData();
+        String[] uDataAAarray = uDataA.split(" ");
+        if(uDataAAarray.length == 2){
+            if((uDataAAarray[0].equals("bee") && fa.getUserData().equals("mega"))) {
+                System.out.println("Hit by "+ uDataAAarray[0] + " "+ uDataAAarray[1]);
+
+                //FIXME Bee resets position
+            }
+
+        }
+
+
     }
 
     @Override

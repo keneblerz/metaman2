@@ -15,11 +15,11 @@ public abstract class EntActor extends Entity{
     boolean updateState = true;
     boolean grounded;
     boolean wallJump;
-    float stateTime;
+    protected float stateTime;
     float maxVelocity = 50;
 
 
-    void setState(State s){ //sets the state of the object
+    public void setState(State s){ //sets the state of the object
         updateState = true;
         stateTime = 0;
         state = s;
@@ -41,13 +41,17 @@ public abstract class EntActor extends Entity{
     }
 
     @Override
-    void draw() {
+    public void draw() {
         sprite = new Sprite(animation.getKeyFrame(stateTime, true));
+
+
         sprite.setPosition(f.getBody().getPosition().x + translateX, f.getBody().getPosition().y + translateY);
         if (reverse) sprite.flip(true,false);
         if (rotating) sprite.setRotation(MathUtils.radiansToDegrees * f.getBody().getAngle());
 
         //sprite.setScale(.25f);
+
+
     }
 
     public void canJump(boolean b) {
@@ -56,7 +60,7 @@ public abstract class EntActor extends Entity{
     public void canWallJump(boolean b) { wallJump = b; }
 
     @Override
-    void update() {
+    protected void update() {
         if (updateState)
             stateTime += Gdx.graphics.getDeltaTime();
     }

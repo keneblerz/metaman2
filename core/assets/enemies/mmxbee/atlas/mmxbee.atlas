@@ -1,0 +1,76 @@
+
+mmxbee.png
+size: 64,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+slice01
+  rotate: false
+  xy: 2, 104
+  size: 29, 32
+  orig: 29, 32
+  offset: 0, 0
+  index: 1
+slice02
+  rotate: false
+  xy: 33, 104
+  size: 29, 32
+  orig: 29, 32
+  offset: 0, 0
+  index: 2
+slice03
+  rotate: false
+  xy: 2, 138
+  size: 31, 32
+  orig: 31, 32
+  offset: 0, 0
+  index: 3
+slice06
+  rotate: false
+  xy: 2, 138
+  size: 31, 32
+  orig: 31, 32
+  offset: 0, 0
+  index: 6
+slice04
+  rotate: false
+  xy: 2, 70
+  size: 29, 32
+  orig: 29, 32
+  offset: 0, 0
+  index: 4
+slice05
+  rotate: false
+  xy: 33, 70
+  size: 29, 32
+  orig: 29, 32
+  offset: 0, 0
+  index: 5
+slice07
+  rotate: false
+  xy: 2, 36
+  size: 29, 32
+  orig: 29, 32
+  offset: 0, 0
+  index: 7
+slice08
+  rotate: false
+  xy: 33, 36
+  size: 29, 32
+  orig: 29, 32
+  offset: 0, 0
+  index: 8
+slice09
+  rotate: false
+  xy: 2, 2
+  size: 29, 32
+  orig: 29, 32
+  offset: 0, 0
+  index: 9
+slice10
+  rotate: false
+  xy: 33, 2
+  size: 29, 32
+  orig: 29, 32
+  offset: 0, 0
+  index: 10

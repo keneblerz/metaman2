@@ -12,11 +12,11 @@ import java.util.HashMap;
  */
 public abstract class Entity {
 
-    enum State { //tells which state the entity is in. IDLE is the default. (meaning it aint doing nothing)
+    public enum State { //tells which state the entity is in. IDLE is the default. (meaning it aint doing nothing)
         IDLE, RUNNING, JUMPING, COMPLETE
     }
 
-    Sprite sprite;
+    protected Sprite sprite;
     float x; //x position
     float y; //y positions
     float h; //height
@@ -30,14 +30,14 @@ public abstract class Entity {
     HashMap<String,Fixture> fs = new HashMap<>();
 
     public Fixture f;
-    float translateX; //to center the sprite image around its physics object
-    float translateY;
+    protected float translateX; //to center the sprite image around its physics object
+    protected float translateY;
     boolean rotating; //does this object rotate along with the physics
 
-    Animation animation;
-    HashMap<State,Animation> animations = new HashMap<>();
+    public Animation animation;
+    public HashMap<State,Animation> animations = new HashMap<>();
 
     abstract void update();
     abstract void draw();
-    abstract void dispose();
+    public abstract void dispose();
 }

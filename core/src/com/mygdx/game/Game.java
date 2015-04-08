@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
+import com.mygdx.game.Enemies.EnemyMmxbee;
 
 import java.util.ArrayList;
 
@@ -27,11 +28,15 @@ TODO 6.Cameras (Movement throughout the level)
 
 TODO 9.Advanced Game Mechanics?? (Shooting/Dashing?)
 
-TODO 10.Enemies and their behavior?
+TODO 10.Enemies and AI
 
 TODO 8.State Machines (Level Selects/Game Over/Game Won/Menus)
 
-TODO Ajillion. InputProcessor will be needed
+TODO Ajillion.InputProcessor will be needed
+
+TODO 13.Tie user data to creation of level objects ie. Enemies/Objects/Powerups
+TODO 14. (BRB)
+
 
 * */
 
@@ -42,7 +47,7 @@ public class Game extends ApplicationAdapter {
 	static ArrayList<EntActor> playerEntities ;
     static ArrayList<Entity> pickupEntities ;
 
-    static World world;
+    public static World world;
     static OrthographicCamera cam;
     static MContactListener contactListener;
 
@@ -53,7 +58,8 @@ public class Game extends ApplicationAdapter {
 	PolygonShape groundBox;
     PolygonShape wallBox;
 
-    Player mm; //megaman
+    public static Player mm; //megaman
+    EnemyMmxbee sampleBeeEnemy;
     float PPM; //Pixel-to-Meter Conversion rate for Box2D
 
 	@Override
@@ -81,8 +87,11 @@ public class Game extends ApplicationAdapter {
 		playerEntities = new ArrayList<>();
 
 		mm = new Player();
+        sampleBeeEnemy = new EnemyMmxbee();
+
 		playerEntities.add(mm);
         backgroundEntities.add(new ObjPlatform(50,50));
+        enemyEntities.add(sampleBeeEnemy);
 
 		testPhysics();
 	}
@@ -90,7 +99,6 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void dispose() {
 		super.dispose();
-		//circle.dispose();
 		groundBox.dispose();
 	}
 
@@ -105,9 +113,15 @@ public class Game extends ApplicationAdapter {
 			e.update();
 		}
 
+        for (EntActor e : enemyEntities){
+            e.update();
+        }
+
 		for (EntActor e : playerEntities){
-			e.update();
-		}
+            e.update();
+        }
+
+
 
         updateGlobalCam(mm);
 
@@ -127,10 +141,17 @@ public class Game extends ApplicationAdapter {
         for (EntEnvironment e : backgroundEntities) {
             e.sprite.draw(batch);
         }
+
+        for (EntActor e : enemyEntities) { //draw enemies
+            e.sprite.draw(batch);
+        }
+
 //
 		for (EntActor e : playerEntities) { //draw players over everything else that has been drawn so far
 			e.sprite.draw(batch);
-		}
+        }
+
+
 
 		batch.end();
 
