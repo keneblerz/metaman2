@@ -9,9 +9,9 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 
 //        REGENERATE ATLASES
-        TexturePacker.Settings settings = new TexturePacker.Settings();
-        String dir = "core\\assets\\enemies\\";
-        TexturePacker.process(settings, dir + "mmxbee", dir + "mmxbee\\atlas", "mmxbee");
+//        TexturePacker.Settings settings = new TexturePacker.Settings();
+//        String dir = "core\\assets\\enemies\\";
+//        TexturePacker.process(settings, dir + "mmxbee", dir + "mmxbee\\atlas", "mmxbee");
 
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = 281;

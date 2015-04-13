@@ -4,6 +4,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Enemies.EnemyMmxbee;
 
 //TODO : All entities assigned "block/floor" to
 /**
@@ -29,20 +30,14 @@ public class MContactListener  implements ContactListener {
         Fixture fb = c.getFixtureB();
 
         if(fa.getUserData().equals("wall") && fb.getUserData().equals("mega")) {
-            System.out.println("Wall Contact");
-
             for (EntActor e : Game.playerEntities) {
                 e.canJump(true);
                 e.canWallJump(true);
-                System.out.println(e.grounded);
             }
         }
         if(fa.getUserData().equals("platform") && fb.getUserData().equals("mega")) {
-            System.out.println("Floor Contact");
-
             for (EntActor e : Game.playerEntities) {
                 e.canJump(true);
-                System.out.println(e.grounded);
             }
         }
 
@@ -51,10 +46,8 @@ public class MContactListener  implements ContactListener {
         if(uDataAAarray.length == 2){
             if((uDataAAarray[0].equals("bee") && fa.getUserData().equals("mega"))) {
                 System.out.println("Hit by "+ uDataAAarray[0] + " "+ uDataAAarray[1]);
-
                 //FIXME Bee resets position
             }
-
         }
 
 
