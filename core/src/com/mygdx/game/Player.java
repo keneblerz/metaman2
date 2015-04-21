@@ -162,7 +162,7 @@ public class Player extends EntActor {
 
         // TODO: Now to make this work with CONTACT: REKT
 
-        if(grounded){ //we're grounded again FIXME Modify for wall jumping
+        if(grounded || wallJump){ //we're grounded again FIXME Modify for wall jumping
             jumpVelocity = 1;
             acceptingJumps = true;
         }

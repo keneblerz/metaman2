@@ -40,6 +40,11 @@ public class MContactListener  implements ContactListener {
                 e.canJump(true);
             }
         }
+        if(fa.getUserData().equals("platform top") && fb.getUserData().equals("mega")) {
+            for (EntActor e : Game.playerEntities) {
+                e.canJump(true);
+            }
+        }
 
         String uDataA = (String) fb.getUserData();
         String[] uDataAAarray = uDataA.split(" ");

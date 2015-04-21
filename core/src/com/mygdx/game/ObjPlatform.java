@@ -31,7 +31,7 @@ public class ObjPlatform extends EntEnvironment {
 
         //platform itself
         shape = new PolygonShape();
-        shape.setAsBox(region.getRegionWidth()/2,(region.getRegionHeight()/2)-2);
+        shape.setAsBox(region.getRegionWidth()/2,(region.getRegionHeight()/2f)-10);
 
         BodyDef groundBodyDef = new BodyDef();
         Body groundBody = Game.world.createBody(groundBodyDef);
@@ -43,7 +43,7 @@ public class ObjPlatform extends EntEnvironment {
 
         fs.put("platform", f);
         shapes.put("platform", shape);
-
+////////////////////////////////////////////////////////////////////////
         //platform Top -- like the walkable part
         shape = new PolygonShape();
         shape.setAsBox(region.getRegionWidth()/2, 1);
@@ -58,13 +58,13 @@ public class ObjPlatform extends EntEnvironment {
 
         fs.put("platform top", f);
         shapes.put("platform top", shape);
-
+//////////////////////////////////////////////////////////////////////// - Its just for me, the ADD kicks in hard sometimes
 
         //sprite stuff
         sprite = new Sprite(region);
         sprite.setPosition(new_x,new_y);
 
-        fs.get("platform").getBody().setTransform(new_x + region.getRegionWidth() / 2, new_y -2 + region.getRegionHeight() / 2, 0);
+        fs.get("platform").getBody().setTransform(new_x + region.getRegionWidth()/2, new_y -2 + region.getRegionHeight() / 2, 0);
         fs.get("platform top").getBody().setTransform(new_x + region.getRegionWidth()/2,new_y + region.getRegionHeight()-1,0);
 //        f.getBody().setTransform(new_x + region.getRegionWidth()/2,new_y + region.getRegionHeight()/2,0);
     }

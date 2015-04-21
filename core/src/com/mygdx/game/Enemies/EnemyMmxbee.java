@@ -42,17 +42,13 @@ public class EnemyMmxbee  extends EntActor {
         BodyDef bodyDef = new BodyDef();
         // We set our body to dynamic, for something like ground which doesn't move we would set it to StaticBody
         bodyDef.type = BodyDef.BodyType.KinematicBody;
+        bodyDef.active = false;
         bodyDef.position.set(120, 180);
 
         Body body = Game.world.createBody(bodyDef);
         f = body.createFixture(fixtureDef);
         body.setUserData("bee " + num);
         f.setUserData("bee " + num);
-
-        String ex = (String)f.getUserData();
-        ex.split(" "); //bee, num
-
-
 
         body.setGravityScale(0); //gravityScale = 0 means this thing will just float, 1.0 is default, use this to change how fast THIS object falls
         body.setFixedRotation(true); //this body NEVER rotates despite torque/inertia applied to it
@@ -79,15 +75,14 @@ public class EnemyMmxbee  extends EntActor {
         clock += Gdx.graphics.getDeltaTime();
         trackerclock += Gdx.graphics.getDeltaTime();
 
-        if(clock > 5) {
+        if(clock > 10) {
             isTracking = false;
             trackerclock = 0;
-            clock = 0;
-
             System.out.println("Clock Time " + clock);
+            clock = 0;
         }
 
-        if(trackerclock > 3){
+        if(trackerclock > 5){
             mmPosition = Game.mm.f.getBody().getPosition(); //Get MM's position every 5 seconds
             isTracking = true;
 
@@ -119,7 +114,7 @@ public class EnemyMmxbee  extends EntActor {
             if(f.getBody().getPosition() == mmPosition)
                 isTracking = false;
         } else {
-            f.getBody().setLinearVelocity(0, 10);
+            f.getBody().setLinearVelocity(0, 20);
         }
 
         draw();
