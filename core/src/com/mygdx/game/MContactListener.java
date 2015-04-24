@@ -23,18 +23,18 @@ public class MContactListener  implements ContactListener {
         2. Touches an item
         3. Touches and enemy
 
-        FIXME Needs to jumps continuously while in contact with wall
+        FIXME Needs to jumps continuously while in contact with wall : LETS SAVE WALL JUMPING FOR LATER
         FIXME There is a force that pushes mega away from the wall when jumping : REKT
         */
         Fixture fa = c.getFixtureA();
         Fixture fb = c.getFixtureB();
 
-        if(fa.getUserData().equals("wall") && fb.getUserData().equals("mega")) {
-            for (EntActor e : Game.playerEntities) {
-                e.canJump(true);
-                e.canWallJump(true);
-            }
-        }
+//        if(fa.getUserData().equals("wall") && fb.getUserData().equals("mega")) {
+//            for (EntActor e : Game.playerEntities) {
+//                e.canJump(true);
+////                e.canWallJump(true);
+//            }
+//        }
         if(fa.getUserData().equals("platform") && fb.getUserData().equals("mega")) {
             for (EntActor e : Game.playerEntities) {
                 e.canJump(true);
@@ -54,8 +54,6 @@ public class MContactListener  implements ContactListener {
                 //FIXME Bee resets position
             }
         }
-
-
     }
 
     @Override
@@ -63,11 +61,21 @@ public class MContactListener  implements ContactListener {
         Fixture fa = c.getFixtureA();
         Fixture fb = c.getFixtureB();
 
-        if(fa.getUserData().equals("wall") && fb.getUserData().equals("mega")) {
+//        if(fa.getUserData().equals("wall") && fb.getUserData().equals("mega")) {
+//            for (EntActor e : Game.playerEntities) {
+//                e.canJump(false);
+////                e.canWallJump(false);
+////                System.out.println(e.wallJump);
+//            }
+//        }
+        if(fa.getUserData().equals("platform") && fb.getUserData().equals("mega")) {
             for (EntActor e : Game.playerEntities) {
                 e.canJump(false);
-                e.canWallJump(false);
-                System.out.println(e.wallJump);
+            }
+        }
+        if(fa.getUserData().equals("platform top") && fb.getUserData().equals("mega")) {
+            for (EntActor e : Game.playerEntities) {
+                e.canJump(false);
             }
         }
     }

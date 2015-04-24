@@ -41,6 +41,7 @@ public class Player extends EntActor {
         ta = new TextureAtlas(Gdx.files.internal("core/assets/megaman/mmjump/output/megaman.atlas"));
         animations.put(State.JUMPING,new Animation((1.0f/10),ta.getRegions() ));
 
+        //TODO : Need to add rectangle to body shape
         circle = new CircleShape();
         circle.setRadius(16f);
         FixtureDef fixtureDef =new FixtureDef();
@@ -79,6 +80,17 @@ public class Player extends EntActor {
         dashCooldown += Gdx.graphics.getDeltaTime();
         shootCooldown += Gdx.graphics.getDeltaTime();
 
+        if(grounded){ //we're grounded again FIXME Modify for wall jumping
+            jumpVelocity = 1;
+            acceptingJumps = true;
+        } //How do i get mega not to jump when in the air
+
+        if (jumpFrame && !Gdx.input.isKeyPressed(Input.Keys.W)){ //jump frame is only set to true after we jumped a frame ... AND we didn't jump this frame
+            jumpFrame = false;
+            acceptingJumps = false; // we don't care if they press the jump key or not, we still won't them jump
+        }
+
+
 
         if(state == State.JUMPING) {
             if (animation.isAnimationFinished(stateTime)) { //we need it to stop at frame .4
@@ -87,10 +99,7 @@ public class Player extends EntActor {
             }
         } //Left it out here to take care of the jumping animation while the button isn't being pressed
 
-        if (jumpFrame && !Gdx.input.isKeyPressed(Input.Keys.W)){ //jump frame is only set to true after we jumped a frame ... AND we didn't jump this frame
-            jumpFrame = false;
-            acceptingJumps = false; // we don't care if they press the jump key or not, we still won't them jump
-        }
+
 
         if(Gdx.input.isKeyPressed(Input.Keys.S)){}
 
@@ -105,8 +114,6 @@ public class Player extends EntActor {
             if(state!= State.RUNNING && state!= State.JUMPING) setState(State.RUNNING);
             reverse = false;
             f.getBody().applyLinearImpulse(50000f, 0.0f,f.getBody().getPosition().x,f.getBody().getPosition().y, true);
-            //f.getBody().setLinearVelocity(200f,0);
-            //f.getBody().applyForce(100000.0f, 0.0f, f.getBody().getPosition().x, 0, true );
         }
 
         if (!Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.D) && f.getBody().getLinearVelocity().y == 0){
@@ -115,7 +122,6 @@ public class Player extends EntActor {
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.W) && jumpVelocity != 0 && acceptingJumps){ //FIXME Needs to not work while in the air
-            grounded = false;
             if(state!= State.JUMPING){
                 setState(State.JUMPING);
             }
@@ -139,16 +145,16 @@ public class Player extends EntActor {
         }
 
         //Dashes
-        if (dashCooldown < 0) System.out.println("Dash Cooldown:" + (0 - dashCooldown));
-
-        if(Gdx.input.isKeyPressed(Input.Keys.F)  && dashCooldown > 0 ){ //F is pressed and the DashTime is positive
-            dashCooldown = -0.1f;
-
-//            state = state.DASHING; //For the animation
-            reverse = false;
-
-            f.getBody().applyLinearImpulse(500000f, 0.0f,f.getBody().getPosition().x,f.getBody().getPosition().y, true);
-        }
+//        if (dashCooldown < 0) System.out.println("Dash Cooldown:" + (0 - dashCooldown));
+//
+//        if(Gdx.input.isKeyPressed(Input.Keys.F)  && dashCooldown > 0 ){ //F is pressed and the DashTime is positive
+//            dashCooldown = -0.1f;
+//
+////            state = state.DASHING; //For the animation
+//            reverse = false;
+//
+//            f.getBody().applyLinearImpulse(500000f, 0.0f,f.getBody().getPosition().x,f.getBody().getPosition().y, true);
+//        }
 
         //Shooting
         if (shootCooldown < 0) System.out.println("Shoot Cooldown:" + (0 - shootCooldown));
@@ -162,10 +168,7 @@ public class Player extends EntActor {
 
         // TODO: Now to make this work with CONTACT: REKT
 
-        if(grounded || wallJump){ //we're grounded again FIXME Modify for wall jumping
-            jumpVelocity = 1;
-            acceptingJumps = true;
-        }
+
 
 //        System.out.println("Y : " + f.getBody().getPosition().y);
 //        System.out.println("Grounded? : " + grounded);
