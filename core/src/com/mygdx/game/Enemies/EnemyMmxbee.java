@@ -42,11 +42,12 @@ public class EnemyMmxbee  extends EntActor {
         BodyDef bodyDef = new BodyDef();
         // We set our body to dynamic, for something like ground which doesn't move we would set it to StaticBody
         bodyDef.type = BodyDef.BodyType.KinematicBody;
-        bodyDef.active = false;
+        bodyDef.active = true;
         bodyDef.position.set(120, 180);
 
         Body body = Game.world.createBody(bodyDef);
         f = body.createFixture(fixtureDef);
+        f.setSensor(true);
         body.setUserData("bee " + num);
         f.setUserData("bee " + num);
 

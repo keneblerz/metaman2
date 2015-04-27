@@ -146,7 +146,6 @@ public class Game extends ApplicationAdapter {
             e.sprite.draw(batch);
         }
 
-//
 		for (EntActor e : playerEntities) { //draw players over everything else that has been drawn so far
 			e.sprite.draw(batch);
         }

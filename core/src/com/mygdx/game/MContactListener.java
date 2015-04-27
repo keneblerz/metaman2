@@ -11,6 +11,7 @@ import com.mygdx.game.Enemies.EnemyMmxbee;
  * Created by Keno on 3/29/2015.
  */
 public class MContactListener  implements ContactListener {
+    int numfootcontacts = 0;
     private Array<Body> bodiesToRemove = new Array(); // For Powerups and whatnot
 
     public MContactListener() {
@@ -81,14 +82,18 @@ public class MContactListener  implements ContactListener {
     }
 
     @Override
-    public void preSolve(Contact c, Manifold m) {}
+    public void preSolve(Contact c, Manifold m) {
+//        Fixture fa = c.getFixtureA();
+//        Fixture fb = c.getFixtureB();
+    }
 
     @Override
     public void postSolve(Contact c, ContactImpulse ci) {
-        Fixture fa = c.getFixtureA();
-        Fixture fb = c.getFixtureB();
+//        Fixture fa = c.getFixtureA();
+//        Fixture fb = c.getFixtureB();
     }
 
+    protected boolean hasFootCollided() { return numfootcontacts > 0;}
     public Array<Body> getBodies() { return this.bodiesToRemove; }
 
 }
