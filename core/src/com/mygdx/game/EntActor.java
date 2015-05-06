@@ -16,7 +16,7 @@ public abstract class EntActor extends Entity{
     boolean grounded;
     boolean wallJump;
     protected float stateTime;
-    protected float clock = 0;
+    public float clock = 0;
 
 
     public void setState(State s){ //sets the state of the object
@@ -58,6 +58,7 @@ public abstract class EntActor extends Entity{
         grounded = b;
     }
     public void canWallJump(boolean b) { wallJump = b; }
+    public void resetClock(float c){ clock = c; }
 
     @Override
     protected void update() {

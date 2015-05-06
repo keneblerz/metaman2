@@ -41,7 +41,7 @@ public class EnemyMmxbee  extends EntActor {
 
         BodyDef bodyDef = new BodyDef();
         // We set our body to dynamic, for something like ground which doesn't move we would set it to StaticBody
-        bodyDef.type = BodyDef.BodyType.KinematicBody;
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.active = true;
         bodyDef.position.set(120, 180);
 
@@ -74,23 +74,17 @@ public class EnemyMmxbee  extends EntActor {
     protected void update() {
         super.update();
 
+        if (clock == 0)
+            mmPosition = Game.mm.f.getBody().getPosition(); //Get MM's position every 5 seconds
+
         clock += Gdx.graphics.getDeltaTime();
 
-        if (clock == 5)
-            mmPosition = Game.mm.f.getBody().getPosition(); //Get MM's position every 5 seconds
         if(clock < 5) {
             isTracking = true;
-
-
-            System.out.println("Is Tracking ");
+            //System.out.println("Is Tracking ");
         } else if(clock > 5f) {
             isTracking = false;
             System.out.println("Clock Time " + clock);
-        }
-
-        //
-        if(f.getBody().getPosition() == mmPosition){
-            clock = 6f;
         }
 
         if(isTracking){
@@ -107,12 +101,6 @@ public class EnemyMmxbee  extends EntActor {
             if (f.getBody().getPosition().y < mmPosition.y) {
                 f.getBody().setLinearVelocity(f.getBody().getLinearVelocity().x, 30f);
             }
-//            System.out.println(f.getBody().getPosition().x - Game.mm.f.getBody().getPosition().x);
-
-//            if( (f.getBody().getPosition().x - Game.mm.f.getBody().getPosition().x) < 1 ||
-//                    (Game.mm.f.getBody().getPosition().x - f.getBody().getPosition().x) > -1 ){
-//                f.getBody().setLinearVelocity(0,-120);
-//            }
         } else {
             f.getBody().setLinearVelocity(0, 20);
         }
@@ -123,6 +111,9 @@ public class EnemyMmxbee  extends EntActor {
 
         draw();
     }
+
+    @Override
+    public void resetClock(float c){ c = clock; }
 
     boolean isTracking = true;
 }

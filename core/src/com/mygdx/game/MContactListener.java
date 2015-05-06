@@ -24,8 +24,8 @@ public class MContactListener  implements ContactListener {
         2. Touches an item
         3. Touches and enemy
 
-        FIXME Needs to jumps continuously while in contact with wall : LETS SAVE WALL JUMPING FOR LATER
-        FIXME There is a force that pushes mega away from the wall when jumping : REKT
+        FIXME Needs to jumps continuously while in contact with wall : PUT ON HOLD
+        FIXME There is a force that pushes mega away from the wall when jumping : PUT ON HOLD
         */
         Fixture fa = c.getFixtureA();
         Fixture fb = c.getFixtureB();
@@ -53,10 +53,10 @@ public class MContactListener  implements ContactListener {
             for (EntActor e : Game.playerEntities) {
                 if ((uDataAAarray[0].equals("bee") && fa.getUserData().equals("mega"))) {
                     System.out.println("Hit by " + uDataAAarray[0] + " " + uDataAAarray[1]);
-                    //FIXME Bee resets position
+                    //FIXME Bee resets position : REKT?
 
-                    System.out.println("Clock reset");
-                    e.clock = 6f;
+                    e.resetClock(6f);
+                    System.out.println("Clock reset " + e.clock);
                 }
             }
         }
@@ -70,8 +70,8 @@ public class MContactListener  implements ContactListener {
 //        if(fa.getUserData().equals("wall") && fb.getUserData().equals("mega")) {
 //            for (EntActor e : Game.playerEntities) {
 //                e.canJump(false);
-////                e.canWallJump(false);
-////                System.out.println(e.wallJump);
+//                e.canWallJump(false);
+//                System.out.println(e.wallJump);
 //            }
 //        }
         if(fa.getUserData().equals("platform") && fb.getUserData().equals("mega")) {
