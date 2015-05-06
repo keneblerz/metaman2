@@ -73,38 +73,39 @@ public class EnemyMmxbee  extends EntActor {
     @Override
     protected void update() {
         super.update();
+
         clock += Gdx.graphics.getDeltaTime();
-        trackerclock += Gdx.graphics.getDeltaTime();
 
-        if(clock > 10) {
-            isTracking = false;
-            trackerclock = 0;
-            System.out.println("Clock Time " + clock);
-            clock = 0;
-        }
-
-        if(trackerclock > 5){
+        if (clock == 5)
             mmPosition = Game.mm.f.getBody().getPosition(); //Get MM's position every 5 seconds
+        if(clock < 5) {
             isTracking = true;
 
-            trackerclock = 0;
 
-            System.out.println("Is Tracking " + isTracking);
+            System.out.println("Is Tracking ");
+        } else if(clock > 5f) {
+            isTracking = false;
+            System.out.println("Clock Time " + clock);
+        }
+
+        //
+        if(f.getBody().getPosition() == mmPosition){
+            clock = 6f;
         }
 
         if(isTracking){
 
             if(f.getBody().getPosition().x > mmPosition.x) {
-                f.getBody().setLinearVelocity(-30, 0);
+                f.getBody().setLinearVelocity(-30f, 0f);
             }
             if(f.getBody().getPosition().x < mmPosition.x) {
-                f.getBody().setLinearVelocity(30,0);
+                f.getBody().setLinearVelocity(30f,0f);
             }
             if (f.getBody().getPosition().y > mmPosition.y) {
-                f.getBody().setLinearVelocity(f.getBody().getLinearVelocity().x, -30);
+                f.getBody().setLinearVelocity(f.getBody().getLinearVelocity().x, -30f);
             }
             if (f.getBody().getPosition().y < mmPosition.y) {
-                f.getBody().setLinearVelocity(f.getBody().getLinearVelocity().x, 30);
+                f.getBody().setLinearVelocity(f.getBody().getLinearVelocity().x, 30f);
             }
 //            System.out.println(f.getBody().getPosition().x - Game.mm.f.getBody().getPosition().x);
 
@@ -112,19 +113,16 @@ public class EnemyMmxbee  extends EntActor {
 //                    (Game.mm.f.getBody().getPosition().x - f.getBody().getPosition().x) > -1 ){
 //                f.getBody().setLinearVelocity(0,-120);
 //            }
-            if(f.getBody().getPosition() == mmPosition)
-                isTracking = false;
         } else {
             f.getBody().setLinearVelocity(0, 20);
+        }
+
+        if(clock > 10) {
+            clock = 0;
         }
 
         draw();
     }
 
-    float clock = 0; //general purpose clock for updating actor position
-    float trackerclock = 0; // Used to update Mega's position
-    float speed = .001f;
-    boolean reverse = false;
     boolean isTracking = true;
-    boolean clockupdate = true;
 }

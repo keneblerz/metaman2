@@ -49,10 +49,15 @@ public class MContactListener  implements ContactListener {
 
         String uDataA = (String) fb.getUserData();
         String[] uDataAAarray = uDataA.split(" ");
-        if(uDataAAarray.length == 2){
-            if((uDataAAarray[0].equals("bee") && fa.getUserData().equals("mega"))) {
-                System.out.println("Hit by "+ uDataAAarray[0] + " "+ uDataAAarray[1]);
-                //FIXME Bee resets position
+        if(uDataAAarray.length == 2) {
+            for (EntActor e : Game.playerEntities) {
+                if ((uDataAAarray[0].equals("bee") && fa.getUserData().equals("mega"))) {
+                    System.out.println("Hit by " + uDataAAarray[0] + " " + uDataAAarray[1]);
+                    //FIXME Bee resets position
+
+                    System.out.println("Clock reset");
+                    e.clock = 6f;
+                }
             }
         }
     }

@@ -16,7 +16,7 @@ public abstract class EntActor extends Entity{
     boolean grounded;
     boolean wallJump;
     protected float stateTime;
-    float maxVelocity = 50;
+    protected float clock = 0;
 
 
     public void setState(State s){ //sets the state of the object
