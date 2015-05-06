@@ -78,6 +78,10 @@ public class Player extends EntActor {
     protected void update() {
         super.update();
 
+        float tempx = f.getBody().getPosition().x;
+        float tempy = f.getBody().getPosition().y;
+        float yVel = f.getBody().getLinearVelocity().y;
+
         dashCooldown += Gdx.graphics.getDeltaTime();
         shootCooldown += Gdx.graphics.getDeltaTime();
 
@@ -120,9 +124,10 @@ public class Player extends EntActor {
                     f.getBody().applyLinearImpulse(-200000f, 200000.0f, f.getBody().getPosition().x, f.getBody().getPosition().y, true);
                 }
             }
-            else
-                f.getBody().applyLinearImpulse(f.getBody().getLinearVelocity().x, 200000.0f, f.getBody().getPosition().x, f.getBody().getPosition().y, true);
-
+            else {
+//                f.getBody().applyLinearImpulse(1f, 1f, f.getBody().getPosition().x, f.getBody().getPosition().y, true);
+                f.getBody().setLinearVelocity(0, 200f);
+            }
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.S)){}
@@ -133,8 +138,8 @@ public class Player extends EntActor {
                 stateTime = 0; // Ensure animation reset
             }
             reverse = true;
-            f.getBody().applyLinearImpulse(-50000.0f, -f.getBody().getGravityScale(), f.getBody().getPosition().x, f.getBody().getPosition().y, true);
-//            f.getBody().setLinearVelocity(-50000.0f, f.getBody().getLinearVelocity().y);
+            f.getBody().applyLinearImpulse(-1f, 0f, f.getBody().getPosition().x, f.getBody().getPosition().y, true);
+            tempx += -1.5f;
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.D) ){
@@ -143,8 +148,8 @@ public class Player extends EntActor {
                 stateTime = 0; // Ensure animation reset
             }
             reverse = false;
-            f.getBody().applyLinearImpulse(50000f, -f.getBody().getGravityScale(),f.getBody().getPosition().x,f.getBody().getPosition().y, true);
-//            f.getBody().setLinearVelocity(-50000.0f, f.getBody().getLinearVelocity().y);
+            f.getBody().applyLinearImpulse(1f, 0f,f.getBody().getPosition().x,f.getBody().getPosition().y, true);
+            tempx += 1.5f;
         }
 
         if (!Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.D) && f.getBody().getLinearVelocity().y == 0){
@@ -173,15 +178,9 @@ public class Player extends EntActor {
             AudioManager.mSounds.shootLemons.play();
         }
 
+        f.getBody().setTransform(tempx, tempy, f.getBody().getAngle());
+
         draw();
-
-        // TODO: Now to make this work with CONTACT: REKT
-
-
-
-//        System.out.println("Y : " + f.getBody().getPosition().y);
-//        System.out.println("Grounded? : " + grounded);
-//        System.out.println("Accepting Jumps? : " + acceptingJumps);
     }
 
     @Override
