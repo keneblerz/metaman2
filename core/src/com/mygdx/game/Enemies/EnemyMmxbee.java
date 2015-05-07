@@ -31,7 +31,7 @@ public class EnemyMmxbee  extends EntActor {
 
 
         circle = new CircleShape();
-        circle.setRadius(18f);
+        circle.setRadius(14f);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = circle;
         fixtureDef.density = 1f;
@@ -90,30 +90,29 @@ public class EnemyMmxbee  extends EntActor {
         if(isTracking){
 
             if(f.getBody().getPosition().x > mmPosition.x) {
-                f.getBody().setLinearVelocity(-30f, 0f);
+                f.getBody().setLinearVelocity(-50f, f.getBody().getLinearVelocity().y);
             }
             if(f.getBody().getPosition().x < mmPosition.x) {
-                f.getBody().setLinearVelocity(30f,0f);
+                f.getBody().setLinearVelocity(50f,f.getBody().getLinearVelocity().y);
             }
             if (f.getBody().getPosition().y > mmPosition.y) {
-                f.getBody().setLinearVelocity(f.getBody().getLinearVelocity().x, -30f);
+                f.getBody().setLinearVelocity(f.getBody().getLinearVelocity().x, -50f);
             }
             if (f.getBody().getPosition().y < mmPosition.y) {
-                f.getBody().setLinearVelocity(f.getBody().getLinearVelocity().x, 30f);
+                f.getBody().setLinearVelocity(f.getBody().getLinearVelocity().x, 50f);
             }
         } else {
-            f.getBody().setLinearVelocity(0, 20);
+            f.getBody().setLinearVelocity(0, 30);
         }
 
+        //
+        if(getActorCollision())
+            resetClock(6f);
         if(clock > 10) {
-            clock = 0;
+            resetClock(0);
         }
 
         draw();
     }
-
-    @Override
-    public void resetClock(float c){ c = clock; }
-
     boolean isTracking = true;
 }

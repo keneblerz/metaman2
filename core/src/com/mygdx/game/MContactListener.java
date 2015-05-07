@@ -30,12 +30,6 @@ public class MContactListener  implements ContactListener {
         Fixture fa = c.getFixtureA();
         Fixture fb = c.getFixtureB();
 
-//        if(fa.getUserData().equals("wall") && fb.getUserData().equals("mega")) {
-//            for (EntActor e : Game.playerEntities) {
-//                e.canJump(true);
-////                e.canWallJump(true);
-//            }
-//        }
         if(fa.getUserData().equals("platform") && fb.getUserData().equals("mega")) {
             for (EntActor e : Game.playerEntities) {
                 e.canJump(true);
@@ -50,14 +44,12 @@ public class MContactListener  implements ContactListener {
         String uDataA = (String) fb.getUserData();
         String[] uDataAAarray = uDataA.split(" ");
         if(uDataAAarray.length == 2) {
-            for (EntActor e : Game.playerEntities) {
-                if ((uDataAAarray[0].equals("bee") && fa.getUserData().equals("mega"))) {
-                    System.out.println("Hit by " + uDataAAarray[0] + " " + uDataAAarray[1]);
+            if ((uDataAAarray[0].equals("bee") && fa.getUserData().equals("mega"))) {
+                for (EntActor e : Game.enemyEntities) {
                     //FIXME Bee resets position : REKT?
+                    e.setActorCollision(true);
 
-                    e.resetClock(6f);
-                    System.out.println("Clock reset " + e.clock);
-                }
+                }Game.mm.setActorCollision(false);
             }
         }
     }
@@ -82,6 +74,17 @@ public class MContactListener  implements ContactListener {
         if(fa.getUserData().equals("platform top") && fb.getUserData().equals("mega")) {
             for (EntActor e : Game.playerEntities) {
                 e.canJump(false);
+            }
+        }
+
+        String uDataA = (String) fb.getUserData();
+        String[] uDataAAarray = uDataA.split(" ");
+        if(uDataAAarray.length == 2) {
+            if ((uDataAAarray[0].equals("bee") && fa.getUserData().equals("mega"))) {
+                for (EntActor e : Game.enemyEntities) {
+                    e.setActorCollision(false);
+
+                }Game.mm.setActorCollision(false);
             }
         }
     }

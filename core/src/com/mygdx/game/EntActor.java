@@ -15,8 +15,9 @@ public abstract class EntActor extends Entity{
     boolean updateState = true;
     boolean grounded;
     boolean wallJump;
+    boolean actorCollision = false;
     protected float stateTime;
-    public float clock = 0;
+    protected float clock = 0;
 
 
     public void setState(State s){ //sets the state of the object
@@ -54,6 +55,8 @@ public abstract class EntActor extends Entity{
 
     }
 
+    public void setActorCollision(boolean b) { actorCollision = b; }
+    public boolean getActorCollision() {return actorCollision; }
     public void canJump(boolean b) {
         grounded = b;
     }
