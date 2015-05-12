@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="26">
+ <tileset firstgid="1" name="block" tilewidth="32" tileheight="32">
+  <image source="block.jpg" width="32" height="32"/>
+  <tile id="0">
+   <properties>
+    <property name="Body Type" value="Static"/>
+    <property name="TileType" value="Terrain"/>
+   </properties>
+  </tile>
+ </tileset>
+ <objectgroup color="#4ea4a4" name="Tile Layer" visible="0">
+  <object id="17" x="19" y="556" width="19" height="72"/>
+  <object id="18" x="3" y="544" width="21" height="94"/>
+  <object id="19" x="2" y="560"/>
+  <object id="20" x="1" y="543" width="22" height="41"/>
+  <object id="21" x="15" y="572"/>
+  <object id="22" x="23" y="578"/>
+  <object id="23" x="13" y="565" width="38" height="66"/>
+  <object id="24" x="41" y="617"/>
+  <object id="25" x="4" y="541"/>
+ </objectgroup>
+ <imagelayer name="Background" x="-22" y="264">
+  <image source="../../../../../Users/Keno/Downloads/screen-shot-2012-09-22-at-9-37-54-pm.png"/>
+ </imagelayer>
+ <layer name="Tile Layer 1" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIKRAxihGJc4OiZGL7I8qe6gxD58ZpFiJ7kYAB3sAC0=
+  </data>
+ </layer>
+</map>

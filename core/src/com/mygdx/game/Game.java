@@ -5,6 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
@@ -50,6 +54,8 @@ public class Game extends ApplicationAdapter {
     public static World world;
     static OrthographicCamera cam;
     static MContactListener contactListener;
+    TiledMap tiledMap;
+    TiledMapRenderer tiledMapRenderer;
 
 	Box2DDebugRenderer debugRenderer; //to show our nice collision bounding boxes
 	SpriteBatch batch; //we need this to tell openGL what to draw
@@ -78,6 +84,9 @@ public class Game extends ApplicationAdapter {
 		cam = new OrthographicCamera(225 * (w / h), 225  );
         cam.update();
 
+        tiledMap = new TmxMapLoader().load("core/assets/TileMaps/TestTMX.tmx");
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+
         System.out.println("Cam viewport " + cam.viewportWidth + " " + cam.viewportHeight);
 
 		batch = new SpriteBatch();
@@ -105,6 +114,7 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		//batch.draw(img, 0, 0);
@@ -130,6 +140,8 @@ public class Game extends ApplicationAdapter {
         if(cam.position.y < cam.viewportHeight/2 - 10)
             cam.position.y = cam.viewportHeight/2 - 10;
 		cam.update();
+        tiledMapRenderer.setView(cam);
+        tiledMapRenderer.render();
 
 		batch.setProjectionMatrix(cam.combined);
 		batch.begin();

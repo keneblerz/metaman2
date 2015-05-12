@@ -14,8 +14,8 @@ public class DesktopLauncher {
 //        TexturePacker.process(settings, dir + "mmxbee", dir + "mmxbee\\atlas", "mmxbee");
 
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 281;
-		config.height = 225;
+		config.width = 620;
+		config.height = 480;
 		config.title = "the great bahamian side scroller";
 		new LwjglApplication(new Game(), config);
 	}
