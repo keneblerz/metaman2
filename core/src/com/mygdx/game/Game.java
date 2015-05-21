@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -55,6 +56,7 @@ public class Game extends ApplicationAdapter {
     static OrthographicCamera cam;
     static MContactListener contactListener;
     TiledMap tiledMap;
+    TiledMapTileLayer tLayer;
     TiledMapRenderer tiledMapRenderer;
 
 	Box2DDebugRenderer debugRenderer; //to show our nice collision bounding boxes
@@ -85,6 +87,7 @@ public class Game extends ApplicationAdapter {
         cam.update();
 
         tiledMap = new TmxMapLoader().load("core/assets/TileMaps/TestTMX.tmx");
+        tLayer = (TiledMapTileLayer)tiledMap.getLayers().get("Floor Tile");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
         System.out.println("Cam viewport " + cam.viewportWidth + " " + cam.viewportHeight);
