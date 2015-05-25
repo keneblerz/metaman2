@@ -125,8 +125,8 @@ public class Player extends EntActor {
                 }
             }
             else {
-//                f.getBody().applyLinearImpulse(1f, 1f, f.getBody().getPosition().x, f.getBody().getPosition().y, true);
-                f.getBody().setLinearVelocity(0, 200f);
+                f.getBody().applyLinearImpulse(0f, 200f, f.getBody().getPosition().x, f.getBody().getPosition().y, true);
+//                f.getBody().setLinearVelocity(0, 200f);
             }
         }
 

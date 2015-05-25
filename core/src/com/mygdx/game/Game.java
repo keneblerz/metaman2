@@ -37,7 +37,7 @@ TODO 10.Enemies and AI
 
 TODO 8.State Machines (Level Selects/Game Over/Game Won/Menus)
 
-TODO Ajillion.InputProcessor will be needed
+TODO Ajillion.InputProcessor will be needed (maybe)
 
 TODO 13.Tie user data to creation of level objects ie. Enemies/Objects/Powerups
 TODO 14. (BRB)
@@ -46,6 +46,8 @@ TODO 14. (BRB)
 * */
 
 public class Game extends ApplicationAdapter {
+    public final float VIEWPORT = 350;
+    public final float PPM = 1 / 16;
 
 	static ArrayList<EntEnvironment> backgroundEntities ;
 	static ArrayList<EntActor> enemyEntities ;
@@ -55,9 +57,13 @@ public class Game extends ApplicationAdapter {
     public static World world;
     static OrthographicCamera cam;
     static MContactListener contactListener;
+
+    ///////////////////////
+
     TiledMap tiledMap;
-    TiledMapTileLayer tLayer;
     TiledMapRenderer tiledMapRenderer;
+
+    ///////////////////////
 
 	Box2DDebugRenderer debugRenderer; //to show our nice collision bounding boxes
 	SpriteBatch batch; //we need this to tell openGL what to draw
@@ -65,10 +71,11 @@ public class Game extends ApplicationAdapter {
 	//experimental
 	PolygonShape groundBox;
     PolygonShape wallBox;
-
+    ChainShape cs;
     public static Player mm; //megaman
     EnemyMmxbee sampleBeeEnemy;
-    float PPM; //Pixel-to-Meter Conversion rate for Box2D
+
+    private float tileSize;
 
 	@Override
 	public void create () {
@@ -83,12 +90,53 @@ public class Game extends ApplicationAdapter {
 		//camera
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
-		cam = new OrthographicCamera(225 * (w / h), 225  );
+		cam = new OrthographicCamera( VIEWPORT * (w / h), VIEWPORT );
         cam.update();
 
+        ////////////////
+
         tiledMap = new TmxMapLoader().load("core/assets/TileMaps/TestTMX.tmx");
-        tLayer = (TiledMapTileLayer)tiledMap.getLayers().get("Floor Tile");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+
+        TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get("floor");
+
+        tileSize = layer.getTileWidth();
+
+        BodyDef fBodyDef = new BodyDef();
+        FixtureDef fDef = new FixtureDef();
+
+        for(int row = 0; row < layer.getHeight(); row++) {
+            for(int col = 0; col < layer.getWidth(); col++) {
+                //get cell
+                TiledMapTileLayer.Cell cell = layer.getCell(col, row);
+
+                // Make a check
+                if(cell == null) continue;
+                if(cell.getTile() == null) continue;
+
+                // create a body + fixture
+                fBodyDef.type = BodyDef.BodyType.StaticBody;
+                fBodyDef.position.set((col + 0.5f) * tileSize / PPM,
+                        (row + 0.5f) * tileSize / PPM);
+
+                cs = new ChainShape();
+                Vector2[] v = new Vector2[3];
+                v[0] = new Vector2( -tileSize / 2 / PPM, -tileSize / 2 / PPM);
+                v[1] = new Vector2( -tileSize /  2 / PPM, tileSize / 2 / PPM);
+                v[2] = new Vector2( tileSize / 2 / PPM, tileSize / 2 / PPM);
+
+                cs.createChain(v);
+                fDef.friction = 0;
+                fDef.shape = cs;
+                fDef.filter.categoryBits = 1;
+                fDef.filter.maskBits = -1;
+                fDef.isSensor = false;
+
+                world.createBody(fBodyDef).createFixture(fDef);
+            }
+        }
+        /////////////////
+
 
         System.out.println("Cam viewport " + cam.viewportWidth + " " + cam.viewportHeight);
 
@@ -112,6 +160,8 @@ public class Game extends ApplicationAdapter {
 	public void dispose() {
 		super.dispose();
 		groundBox.dispose();
+        wallBox.dispose();
+        cs.dispose();
 	}
 
 	@Override
@@ -133,8 +183,6 @@ public class Game extends ApplicationAdapter {
 		for (EntActor e : playerEntities){
             e.update();
         }
-
-
 
         updateGlobalCam(mm);
 
@@ -178,8 +226,8 @@ public class Game extends ApplicationAdapter {
 
     @Override
     public void resize(int width, int height) {
-        cam.viewportWidth = width * (width/height);  //We will see width/32f units!
-        cam.viewportHeight = height ;
+//        cam.viewportWidth = width * (VIEWPORT/height);  //We will see width/32f units!
+        cam.viewportHeight = (VIEWPORT / width) * height ; //I REALLY LIKE THIS CONFIG
         cam.update();
     }
 
