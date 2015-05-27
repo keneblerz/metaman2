@@ -35,7 +35,7 @@ TODO 9.Advanced Game Mechanics?? (Shooting/Dashing?)
 
 TODO 10.Enemies and AI
 
-TODO 8.State Machines (Level Selects/Game Over/Game Won/Menus)
+TODO 8.State Machines (LevelLoader Selects/Game Over/Game Won/Menus)
 
 TODO Ajillion.InputProcessor will be needed (maybe)
 
@@ -46,8 +46,7 @@ TODO 14. (BRB)
 * */
 
 public class Game extends ApplicationAdapter {
-    public final float VIEWPORT = 350;
-    public final float PPM = 1 / 16;
+
 
 	static ArrayList<EntEnvironment> backgroundEntities ;
 	static ArrayList<EntActor> enemyEntities ;
@@ -75,7 +74,9 @@ public class Game extends ApplicationAdapter {
     public static Player mm; //megaman
     EnemyMmxbee sampleBeeEnemy;
 
-    private float tileSize;
+    public float tileSize;
+    public final float VIEWPORT = 350f;
+    public float PPM = 1f;
 
 	@Override
 	public void create () {
@@ -118,21 +119,25 @@ public class Game extends ApplicationAdapter {
                 fBodyDef.type = BodyDef.BodyType.StaticBody;
                 fBodyDef.position.set((col + 0.5f) * tileSize / PPM,
                         (row + 0.5f) * tileSize / PPM);
+                fBodyDef.allowSleep = true;
 
                 cs = new ChainShape();
-                Vector2[] v = new Vector2[3];
-                v[0] = new Vector2( -tileSize / 2 / PPM, -tileSize / 2 / PPM);
-                v[1] = new Vector2( -tileSize /  2 / PPM, tileSize / 2 / PPM);
-                v[2] = new Vector2( tileSize / 2 / PPM, tileSize / 2 / PPM);
 
-                cs.createChain(v);
-                fDef.friction = 0;
+                fDef.friction = 0.8f;
                 fDef.shape = cs;
                 fDef.filter.categoryBits = 1;
                 fDef.filter.maskBits = -1;
                 fDef.isSensor = false;
 
-                world.createBody(fBodyDef).createFixture(fDef);
+                Vector2[] v = new Vector2[5];
+                v[0] = new Vector2( -tileSize / 2 / PPM, -tileSize / 2 / PPM);
+                v[1] = new Vector2( -tileSize / 2 / PPM, tileSize / 2 / PPM);
+                v[2] = new Vector2( tileSize / 2 / PPM, tileSize / 2 / PPM);
+                v[3] = new Vector2( tileSize / 2 / PPM, -tileSize / 2 / PPM);
+                v[4] = new Vector2( -tileSize / 2 / PPM, -tileSize / 2 / PPM);
+
+                cs.createChain(v);
+                world.createBody(fBodyDef).createFixture(fDef).setUserData("platform");
             }
         }
         /////////////////
@@ -150,10 +155,10 @@ public class Game extends ApplicationAdapter {
         sampleBeeEnemy = new EnemyMmxbee();
 
 		playerEntities.add(mm);
-        backgroundEntities.add(new ObjPlatform(50,50));
+        backgroundEntities.add(new ObjPlatform(200,200));
         enemyEntities.add(sampleBeeEnemy);
 
-		testPhysics();
+		//testPhysics();
 	}
 
 	@Override
@@ -169,8 +174,6 @@ public class Game extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		//batch.draw(img, 0, 0);
 
 		for (EntEnvironment e : backgroundEntities){
 			e.update();
@@ -213,8 +216,6 @@ public class Game extends ApplicationAdapter {
 			e.sprite.draw(batch);
         }
 
-
-
 		batch.end();
 
 		world.step(1/60f, 6, 2); //make a physics step of 1/60 (SYNC with out 60fps screen)
@@ -252,7 +253,7 @@ public class Game extends ApplicationAdapter {
         cam.position.set(cameraPosition);
     }
 
-    void testPhysics(){
+    public void testPhysics(){
         //Needs Entity class to create these so they can have their own fixture
 
         // Create a polygon shape

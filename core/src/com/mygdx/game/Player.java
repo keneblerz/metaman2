@@ -55,7 +55,7 @@ public class Player extends EntActor {
         BodyDef bodyDef = new BodyDef();
         // We set our body to dynamic, for something like ground which doesn't move we would set it to StaticBody
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(50, 120);
+        bodyDef.position.set(70, 120);
         Body body = Game.world.createBody(bodyDef);
         f = body.createFixture(fixtureDefCircle);
         body.setUserData("mega");
@@ -125,8 +125,8 @@ public class Player extends EntActor {
                 }
             }
             else {
-                f.getBody().applyLinearImpulse(0f, 200f, f.getBody().getPosition().x, f.getBody().getPosition().y, true);
-//                f.getBody().setLinearVelocity(0, 200f);
+//                f.getBody().applyLinearImpulse(0f, 20000f, f.getBody().getPosition().x, f.getBody().getPosition().y, true);
+                f.getBody().setLinearVelocity(0, 150f);
             }
         }
 
@@ -138,7 +138,7 @@ public class Player extends EntActor {
                 stateTime = 0; // Ensure animation reset
             }
             reverse = true;
-            f.getBody().applyLinearImpulse(-1f, 0f, f.getBody().getPosition().x, f.getBody().getPosition().y, true);
+            f.getBody().applyLinearImpulse(0f, 0f, f.getBody().getPosition().x, f.getBody().getPosition().y, true);
             tempx += -1.5f;
         }
 
@@ -148,7 +148,7 @@ public class Player extends EntActor {
                 stateTime = 0; // Ensure animation reset
             }
             reverse = false;
-            f.getBody().applyLinearImpulse(1f, 0f,f.getBody().getPosition().x,f.getBody().getPosition().y, true);
+            f.getBody().applyLinearImpulse(0f, 0f,f.getBody().getPosition().x,f.getBody().getPosition().y, true);
             tempx += 1.5f;
         }
 
