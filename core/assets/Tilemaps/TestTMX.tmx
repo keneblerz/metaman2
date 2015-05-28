@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="117">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="18" tilewidth="32" tileheight="32" nextobjectid="117">
  <tileset firstgid="1" name="Blue Block" tilewidth="32" tileheight="32">
   <image source="block.jpg" width="32" height="32"/>
   <terraintypes>
@@ -15,17 +15,17 @@
    </properties>
   </tile>
  </tileset>
- <imagelayer name="Background" x="1" y="-440" visible="0">
+ <imagelayer name="Background" y="-480">
   <image source="SMW Background.gif"/>
  </imagelayer>
- <layer name="floor" width="20" height="20">
+ <layer name="floor" width="32" height="18" opacity="0.65">
   <properties>
    <property name="BodyType" value="StaticBody"/>
    <property name="body" value="floor"/>
    <property name="friction" value="0.8"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjALaA0Y0TIwadHW49FHqJkJuIcUsUvTgcge2cMAlT8gNuMyiBgYALYgAOg==
+   eJxjYBgFo2AUjIKRCxjRML3sopY5tHIzuh3k2EOMXmq5n5puxaWfGmGCbt5AAVL8Sqx5uMzAZ/ZAYgB01ABO
   </data>
  </layer>
 </map>
