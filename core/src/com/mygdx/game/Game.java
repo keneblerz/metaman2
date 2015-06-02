@@ -16,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.Enemies.EnemyMmxbee;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 /*
 Goals/Machanics For Megaman
@@ -57,12 +58,12 @@ public class Game extends ApplicationAdapter {
     static OrthographicCamera cam;
     static MContactListener contactListener;
 
-    ///////////////////////
-
-    TiledMap tiledMap;
-    TiledMapRenderer tiledMapRenderer;
-
-    ///////////////////////
+//    ///////////////////////
+//
+//    TiledMap tiledMap;
+//    TiledMapRenderer tiledMapRenderer;
+//
+//    ///////////////////////
 
 	Box2DDebugRenderer debugRenderer; //to show our nice collision bounding boxes
 	SpriteBatch batch; //we need this to tell openGL what to draw
@@ -73,6 +74,7 @@ public class Game extends ApplicationAdapter {
     ChainShape cs;
     public static Player mm; //megaman
     EnemyMmxbee sampleBeeEnemy;
+    LevelLoader levelLoader;
 
     public float tileSize;
     public final float VIEWPORT = 350f;
@@ -94,54 +96,12 @@ public class Game extends ApplicationAdapter {
 		cam = new OrthographicCamera( VIEWPORT * (w / h), VIEWPORT );
         cam.update();
 
-        ////////////////
+        //////////////////////
 
-        tiledMap = new TmxMapLoader().load("core/assets/TileMaps/TestTMX.tmx");
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+        levelLoader = new LevelLoader(world, "core/assets/TileMaps/TestTMX.tmx", 1 );
+        levelLoader.createLevelFixtures();
 
-        TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get("floor");
-
-        tileSize = layer.getTileWidth();
-
-        BodyDef fBodyDef = new BodyDef();
-        FixtureDef fDef = new FixtureDef();
-
-        for(int row = 0; row < layer.getHeight(); row++) {
-            for(int col = 0; col < layer.getWidth(); col++) {
-                //get cell
-                TiledMapTileLayer.Cell cell = layer.getCell(col, row);
-
-                // Make a check
-                if(cell == null) continue;
-                if(cell.getTile() == null) continue;
-
-                // create a body + fixture
-                fBodyDef.type = BodyDef.BodyType.StaticBody;
-                fBodyDef.position.set((col + 0.5f) * tileSize / PPM,
-                        (row + 0.5f) * tileSize / PPM);
-                fBodyDef.allowSleep = true;
-
-                cs = new ChainShape();
-
-                fDef.friction = 0.8f;
-                fDef.shape = cs;
-                fDef.filter.categoryBits = 1;
-                fDef.filter.maskBits = -1;
-                fDef.isSensor = false;
-
-                Vector2[] v = new Vector2[5];
-                v[0] = new Vector2( -tileSize / 2 / PPM, -tileSize / 2 / PPM);
-                v[1] = new Vector2( -tileSize / 2 / PPM, tileSize / 2 / PPM);
-                v[2] = new Vector2( tileSize / 2 / PPM, tileSize / 2 / PPM);
-                v[3] = new Vector2( tileSize / 2 / PPM, -tileSize / 2 / PPM);
-                v[4] = new Vector2( -tileSize / 2 / PPM, -tileSize / 2 / PPM);
-
-                cs.createChain(v);
-                world.createBody(fBodyDef).createFixture(fDef).setUserData("platform");
-            }
-        }
-        /////////////////
-
+        ///////////////////////
 
         System.out.println("Cam viewport " + cam.viewportWidth + " " + cam.viewportHeight);
 
@@ -194,9 +154,8 @@ public class Game extends ApplicationAdapter {
         if(cam.position.y < cam.viewportHeight/2 - 10)
             cam.position.y = cam.viewportHeight/2 - 10;
 		cam.update();
-        tiledMapRenderer.setView(cam);
-        tiledMapRenderer.render();
 
+        levelLoader.levelRender();
 		batch.setProjectionMatrix(cam.combined);
 		batch.begin();
 
