@@ -1,0 +1,29 @@
+Jitney Tracker App~
+
+
+-Registered Bus Drivers can use this to broadcast their gps position
+
+-Should also be able to turn off GPS tracking when going on lunch or closing their service for the day. (since we are tracking them by phone) This being the case, the app should be made easy to switch on and off (so simple and idiot can do it blinded).
+
+-The app will allow the user to select their desired route. Once selected a gps map will appear with the highlighted route with the jitney's represented by their route number in a small circle.
+
+-The user should be able to see who is driving which bus. For obvious personal/safety reasons (Some persons are select in their jitney choices for)
+
+
+
+Problem
+1. User registration
+2. Public safety
+3. Saftey of the drivers
+
+Solution
+1. If sold to Bahamas' governing public transportation body. Can use Bus Driver license numbers to track who uses the app. And even display metadata about them.
+
+Pros-
+Allows those with the apps to plan their travel in advance without having to miss the bus.
+(since no one organization governs jitney scheduling everything just happens in tandem)
+
+Cons-
+
+
+Adoption rate is a concern since bahamians are not apt to new things. (unless its instant gratification)
