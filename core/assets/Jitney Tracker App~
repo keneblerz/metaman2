@@ -1,7 +1,11 @@
 Jitney Tracker App~
 
 
--Registered Bus Drivers can use this to broadcast their gps position
+-Registered Bus Drivers can use this to send gps data via network to a server.
+-Network data will be sent to registered users.
+-Will only be available to users in our country/area
+-Will require me to program a server
+
 
 -Should also be able to turn off GPS tracking when going on lunch or closing their service for the day. (since we are tracking them by phone) This being the case, the app should be made easy to switch on and off (so simple and idiot can do it blinded).
 
@@ -13,17 +17,14 @@ Jitney Tracker App~
 
 Problem
 1. User registration
-2. Public safety
-3. Saftey of the drivers
-
-Solution
-1. If sold to Bahamas' governing public transportation body. Can use Bus Driver license numbers to track who uses the app. And even display metadata about them.
+2. Public privacy/saftey
+3. Privacy/Saftey of the drivers
 
 Pros-
 Allows those with the apps to plan their travel in advance without having to miss the bus.
 (since no one organization governs jitney scheduling everything just happens in tandem)
 
 Cons-
-
-
+Frequently updating GPS data will lower phone battery life.
 Adoption rate is a concern since bahamians are not apt to new things. (unless its instant gratification)
+Will need a system to replace which phone is registered in case the phone is lost/stolen. (Something very user friendly)
