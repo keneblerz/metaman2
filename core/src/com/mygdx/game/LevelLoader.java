@@ -37,7 +37,7 @@ public class LevelLoader {
         this.PPM = pixelPerUnit;
 
         tiledMap = new TmxMapLoader().load(tmxDir);
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1 / PPM);
     }
 
     //This will only be done with TMX files for now so were only working with tiles for the moment

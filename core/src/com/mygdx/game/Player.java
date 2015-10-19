@@ -44,7 +44,7 @@ public class Player extends EntActor {
 
         //TODO : Need to add rectangle to body shape
         circle = new CircleShape();
-        circle.setRadius(16f);
+        circle.setRadius(16f / Game.PPM);
         FixtureDef fixtureDefCircle = new FixtureDef();
         fixtureDefCircle.shape = circle;
         fixtureDefCircle.density = 1f;
@@ -55,7 +55,7 @@ public class Player extends EntActor {
         BodyDef bodyDef = new BodyDef();
         // We set our body to dynamic, for something like ground which doesn't move we would set it to StaticBody
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(70, 120);
+        bodyDef.position.set(70 / Game.PPM, 120 / Game.PPM);
         Body body = Game.world.createBody(bodyDef);
         f = body.createFixture(fixtureDefCircle);
         body.setUserData("mega");
@@ -68,7 +68,7 @@ public class Player extends EntActor {
 
         setState(State.IDLE);
 
-        translateX = translateY = -16;
+        translateX = translateY = -16 / Game.PPM;
 
         //isPlayer = true;
         draw();

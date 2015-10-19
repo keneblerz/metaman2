@@ -31,7 +31,7 @@ public class EnemyMmxbee  extends EntActor {
 
 
         circle = new CircleShape();
-        circle.setRadius(14f);
+        circle.setRadius(14f / Game.PPM);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = circle;
         fixtureDef.density = 1f;
@@ -43,7 +43,7 @@ public class EnemyMmxbee  extends EntActor {
         // We set our body to dynamic, for something like ground which doesn't move we would set it to StaticBody
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.active = true;
-        bodyDef.position.set(120, 180);
+        bodyDef.position.set(120 / Game.PPM, 180 / Game.PPM);
 
         Body body = Game.world.createBody(bodyDef);
         f = body.createFixture(fixtureDef);
@@ -55,7 +55,7 @@ public class EnemyMmxbee  extends EntActor {
         body.setFixedRotation(true); //this body NEVER rotates despite torque/inertia applied to it
 
 
-        translateX = translateY = -14;
+        translateX = translateY = -14 / Game.PPM;
 
         setState(State.IDLE);
 

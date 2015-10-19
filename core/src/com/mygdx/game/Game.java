@@ -13,6 +13,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Enemies.EnemyMmxbee;
 
 import java.util.ArrayList;
@@ -56,6 +58,7 @@ public class Game extends ApplicationAdapter {
 
     public static World world;
     static OrthographicCamera cam;
+    static FitViewport gameport;
     static MContactListener contactListener;
 
 //    ///////////////////////
@@ -77,13 +80,14 @@ public class Game extends ApplicationAdapter {
     LevelLoader levelLoader;
 
     public float tileSize;
-    public final float VIEWPORT = 350f;
-    public float PPM = 1f;
+    public final int VIEWPORT = 350;
+    public static float PPM = 100f ;
 
 	@Override
 	public void create () {
 
 		world = new World(new Vector2(0, -10f), true); // only use -10f
+
 		contactListener = new MContactListener();
         world.setContactListener(contactListener);
 		debugRenderer = new Box2DDebugRenderer();
@@ -93,13 +97,16 @@ public class Game extends ApplicationAdapter {
 		//camera
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
-		cam = new OrthographicCamera( VIEWPORT * (w / h), VIEWPORT );
+		cam = new OrthographicCamera();
+        gameport = new FitViewport(VIEWPORT / PPM, VIEWPORT / PPM, cam);
         cam.update();
 
         //////////////////////
 
-        levelLoader = new LevelLoader(world, "core/assets/TileMaps/TestTMX.tmx", 1 );
+        levelLoader = new LevelLoader(world, "core/assets/TileMaps/TestTMX.tmx", PPM );
         levelLoader.createLevelFixtures();
+
+        cam.position.set(gameport.getWorldWidth() / 2, gameport.getWorldHeight() / 2, 0);
 
         ///////////////////////
 
@@ -115,10 +122,10 @@ public class Game extends ApplicationAdapter {
         sampleBeeEnemy = new EnemyMmxbee();
 
 		playerEntities.add(mm);
-        backgroundEntities.add(new ObjPlatform(200,200));
+        backgroundEntities.add(new ObjPlatform(50 / PPM ,50 / PPM));
         enemyEntities.add(sampleBeeEnemy);
 
-		//testPhysics();
+        //testPhysics();
 	}
 
 	@Override
@@ -149,10 +156,10 @@ public class Game extends ApplicationAdapter {
 
         updateGlobalCam(mm);
 
-        if(cam.position.x < cam.viewportWidth/2 - 10)
-            cam.position.x = cam.viewportWidth/2 - 10;
-        if(cam.position.y < cam.viewportHeight/2 - 10)
-            cam.position.y = cam.viewportHeight/2 - 10;
+        if(cam.position.x < cam.viewportWidth/2 - (10/PPM))
+            cam.position.x = cam.viewportWidth/2 - (10/PPM);
+        if(cam.position.y < cam.viewportHeight/2 - (10/PPM))
+            cam.position.y = cam.viewportHeight/2 - (10/PPM);
 		cam.update();
 
         levelLoader.levelRender();
@@ -187,8 +194,9 @@ public class Game extends ApplicationAdapter {
     @Override
     public void resize(int width, int height) {
 //        cam.viewportWidth = width * (VIEWPORT/height);  //We will see width/32f units!
-        cam.viewportHeight = (VIEWPORT / width) * height ; //I REALLY LIKE THIS CONFIG
-        cam.update();
+//        cam.viewportHeight = ((VIEWPORT / width) * height) ; //I REALLY LIKE THIS CONFIG
+//        cam.update();
+        gameport.update(width, height);
     }
 
     public void updateGlobalCam(EntActor e) {
@@ -196,16 +204,16 @@ public class Game extends ApplicationAdapter {
         Vector3 cameraPosition = new Vector3(cam.position);
         Vector3 target = new Vector3(0, 0, 0);
 
-        if(tempPosition.x > cam.viewportWidth/3) {
+        if(tempPosition.x > (cam.viewportWidth/3)) {
             target = new Vector3(tempPosition.x, 0, 0);
 
-            if(tempPosition.y > cam.viewportHeight/3)
+            if(tempPosition.y > (cam.viewportHeight/3))
                 target = new Vector3(tempPosition.x, tempPosition.y, 0);
         }
-        else if(tempPosition.y > cam.viewportHeight/3) {
+        else if(tempPosition.y > (cam.viewportHeight/3)) {
             target = new Vector3(0, tempPosition.y, 0);
 
-            if(tempPosition.x > cam.viewportWidth/3)
+            if(tempPosition.x > (cam.viewportWidth/3))
                 target = new Vector3(tempPosition.x, tempPosition.y, 0);
         }
         cameraPosition.lerp(target, 0.1f);
